@@ -16,10 +16,19 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::middleware(['auth:api'])->get('/token/revoke', function (Request $request) {
+
     DB::table('oauth_access_tokens')
         ->where('user_id', $request->user()->id)
         ->update([
             'revoked' => true
         ]);
     return response()->json('DONE');
+});
+
+
+/** Route Prefix for Admin Routes */
+Route::group(['prefix' => 'admin',  'middleware' =>['auth:api']], function() {
+    Route::post('upload-audio', 'AdminController@uploadAudio');
+    Route::get('audio-list', 'AdminController@audioList');
+    Route::delete('delete-audio/{id}', 'AdminController@deleteAudio');
 });

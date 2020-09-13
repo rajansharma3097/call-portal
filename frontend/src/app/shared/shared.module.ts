@@ -22,6 +22,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { FlotDirective } from './directives/flot/flot.directive';
 import { SparklineDirective } from './directives/sparkline/sparkline.directive';
@@ -57,7 +58,11 @@ import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
         TooltipModule.forRoot(),
         PopoverModule.forRoot(),
         TypeaheadModule.forRoot(),
-        ToastrModule.forRoot()
+        ToastrModule.forRoot({
+          positionClass: 'toast-bottom-right',
+          preventDuplicates: true,
+        }),
+        NgxDatatableModule
     ],
     providers: [
         ColorsService
@@ -103,7 +108,8 @@ import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
         VectormapDirective,
         NowDirective,
         ScrollableDirective,
-        JqcloudDirective
+        JqcloudDirective,
+        NgxDatatableModule
     ]
 })
 

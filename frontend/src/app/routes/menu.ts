@@ -5,6 +5,18 @@ const Home = {
     icon: 'icon-home'
 };
 
+const Admin = {
+  text: 'Admin',
+  link: '/admin',
+  icon: 'icon-user',
+  submenu: [
+      {
+          text: 'Audio',
+          link: '/admin/audio-list'
+      },
+  ]
+};
+
 const headingMain = {
     text: 'Main Navigation',
     heading: true
@@ -12,5 +24,6 @@ const headingMain = {
 
 export const menu = [
     headingMain,
-    Home
+    Home,
+    Admin
 ];

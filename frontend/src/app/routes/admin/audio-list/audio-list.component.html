@@ -1,0 +1,49 @@
+<div class="content-heading">
+  <div>Audio Listing</div>
+</div>
+<div class="card card-default">
+  <div class="card-header">
+      <div class="card-title">
+        <button type="button" class="btn btn-primary" [routerLink]="['/admin/upload-audio']" >Add New Audio</button>
+      </div>
+  </div>
+  <div class="card-body">
+      <div class="row mb-4">
+          <div class="col-lg-4">
+              <input type='text' class="form-control" placeholder='Type to filter the data...' (keyup)='updateFilter($event)' />
+          </div>
+      </div>
+      <ngx-datatable #myTable class='material no-detail-row'
+      [columnMode]="ColumnMode.force"
+      [footerHeight]="50"
+      [headerHeight]="50"
+      [rowHeight]="'auto'"
+      [reorderable]="reorderable"
+      [scrollbarH]="true"
+      [rows]='rows'
+      [externalPaging]="true"
+      [externalSorting]="false"
+      [loadingIndicator]="loading"
+      [count]="page.totalElements"
+      [offset]="page.pageNumber-1"
+      [limit]="page.size"
+      (page)="getAudioList($event)"
+      (sort)="onSort($event)">
+          <ngx-datatable-column name="Audio Name" prop="audio_name" [sortable]="true"></ngx-datatable-column>
+          <ngx-datatable-column name="Play" [sortable]="false" [width]="300">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <audio controls>
+                <!-- <source src="horse.ogg" type="audio/ogg"> -->
+                <source src="{{apiHost}}uploads/audios/{{row.audio_file}}" type="audio/mpeg">
+              </audio>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Action" prop="id" [sortable]="false">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+             <a [routerLink]="['/stores/add-new-store',value]"> <i class="fa mr-2 fas fa-edit" ></i> </a>
+             <a style="cursor: pointer;" (click)="onAudioDelete(value)"><i class="fa mr-2 fas fa-trash-alt"></i></a>
+            </ng-template>
+          </ngx-datatable-column>
+      </ngx-datatable>
+  </div>
+</div>
