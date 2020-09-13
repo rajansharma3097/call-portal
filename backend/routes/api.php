@@ -22,4 +22,6 @@ Route::middleware(['auth:api'])->get('/token/revoke', function (Request $request
             'revoked' => true
         ]);
     return response()->json('DONE');
-});
+}); 
+
+Route::post('/signup','AuthController@signup');

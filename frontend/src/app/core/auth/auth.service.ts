@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
     this.options = {
       headers: new HttpHeaders({
-        Accept: 'application/json',
+      Accept: 'application/json',
         'Content-Type': 'application/json'
       })
     };
@@ -36,7 +36,7 @@ export class AuthService {
     return this.http.post(this.authUrl, {
       grant_type: 'password',
       client_id: '2',
-      client_secret: 'HhQqItu5j2lAQSBGCcXNkMXFzIn81iSwodKrwndK',
+      client_secret: 'MeYarJvGQwq2JFZ4ItNvNHBJollRIzK0QVIyCX1g',
       username: email,
       password: password,
       // scope: ''
