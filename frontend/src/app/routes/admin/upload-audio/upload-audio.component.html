@@ -1,0 +1,38 @@
+<div class="content-heading">
+    <div>
+        Upload Audio
+    </div>
+</div>
+<div class="col-md-12">
+    <!-- START card-->
+    <div class="card card-default">
+        <!-- <div class="card-header">Horizontal form</div> -->
+        <div class="card-body">
+            <form class="form-horizontal" [formGroup]="myForm" (submit)="submit($event, myForm.value)">
+                <div class="form-group row">
+                    <label class="col-xl-2 col-form-label" for="name">Audio Name</label>
+                    <div class="col-xl-8">
+                        <input formControlName="name" id="name" type="text" class="form-control border-right-0" placeholder="Enter Audio Name" autocomplete="off" required="">
+                        <div class="text-danger" *ngIf="myForm.controls['name'].hasError('required') && (myForm.controls['name'].dirty || myForm.controls['name'].touched)">This field is required</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-xl-2 col-form-label" for="file">Audio File</label>
+                    <div class="col-xl-8">
+                        <input formControlName="file" id="file" type="file" class="form-control border-right-0"
+                            (change)="onFileChange($event)" accept="audio/mp3, audio/wav, audio/mpeg" required="">
+                        <div class="text-danger" *ngIf="myForm.controls['file'].hasError('required') && (myForm.controls['file'].dirty || myForm.controls['file'].touched)">This field is required</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-xl-2 col-form-label"></label>
+                    <div class="col-xl-8">
+                        <button class="btn btn-sm btn-primary mr-1" type="submit">Submit</button>
+                        <button class="btn btn-sm btn-danger" type="button" [routerLink]="['/admin/audio-list']"> Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END card-->
+</div>
