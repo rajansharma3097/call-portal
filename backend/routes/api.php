@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailTemplateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -32,4 +33,18 @@ Route::group(['prefix' => 'admin',  'middleware' =>['auth:api']], function() {
     Route::post('upload-audio', 'AdminController@uploadAudio');
     Route::get('audio-list', 'AdminController@audioList');
     Route::delete('delete-audio/{id}', 'AdminController@deleteAudio');
+    
 });
+
+/*
+*AdminEmail template Routing
+*/
+Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']
+], function () {
+
+    Route::get('email-template-list',     'EmailTemplateController@list');
+    Route::get('edit-email-template/{id}','EmailTemplateController@get');
+    Route::post('update-email-template',  'EmailTemplateController@update');
+
+});
+

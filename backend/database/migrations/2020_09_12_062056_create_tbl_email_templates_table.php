@@ -18,7 +18,6 @@ class CreateTblEmailTemplatesTable extends Migration
             $table->foreignId('template_type_id');
             $table->string('subject');
             $table->string('title');
-            $table->string('subject');
             $table->longText('body');
             $table->integer('status')->default(1);
             $table->timestamps();

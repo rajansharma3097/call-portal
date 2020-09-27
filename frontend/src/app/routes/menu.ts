@@ -6,15 +6,22 @@ const Home = {
 };
 
 const Admin = {
-  text: 'Admin',
-  link: '/admin',
-  icon: 'icon-user',
-  submenu: [
-      {
-          text: 'Audio',
-          link: '/admin/audio-list'
-      },
-  ]
+    text: 'Admin',
+    link: '/admin',
+    icon: 'icon-user',
+    submenu: [
+        {
+            text: 'Audio',
+            link: '/admin/audio-list',
+            icon:' fa-file-audio'
+        },
+
+        {
+            text: 'Email Template',
+            link: '/admin/email-template-list',
+            icon: 'icon-envelope'
+        },
+    ]
 };
 
 const headingMain = {

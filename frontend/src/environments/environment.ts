@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8000/api',
   apiHost: 'http://localhost:8000/',
+  tinyApiKey:'a00cug9abu0mspuwkxavcqidbxgxfcq7wabyg4mfp2kzv7df'
 };
 
 /*

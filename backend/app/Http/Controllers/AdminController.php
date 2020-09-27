@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function uploadAudio(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'user_id' => 'required',
+            //'user_id' => 'required',
             'audio_name' => 'required|max:255',
             'file' => 'required|file|mimes:audio/mpeg,mp3,wav|max:1048',
         ]);

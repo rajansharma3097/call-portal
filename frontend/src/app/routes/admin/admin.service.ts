@@ -14,6 +14,7 @@ import { PagedData } from '../../shared/paged-data';
 export class AdminService {
 
   private baseUrl = environment.apiUrl;
+  private tinyApiKey = environment.tinyApiKey;
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   uploadAudio(formData: FormData): Observable<any> {
@@ -44,6 +45,58 @@ export class AdminService {
    */
   deleteAudio(audioId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/admin/delete-audio/${audioId}`);
+  }
+
+  /**
+   * A method that fetch audios from server
+   * @param page The selected page
+   * @returns {any} An observable containing the audio data
+   */
+  getEmailListing(page: Page): Observable<any> {
+    return this.http.get(`${this.baseUrl}/admin/email-template-list?page=${page.pageNumber}`)
+               .pipe(
+                 map((data: any) => {
+                   if(data.code == 1) {
+                    return this.getPagedData(page, data)
+                   } else {
+                     return data;
+                   }
+                 })
+               );
+  }
+
+   /**
+   * A method that fetch emaildata from server
+   * @param page The selected page
+   * @returns {any} An observable containing the emailtemplate data
+   */
+  getEmailtemplate(emailID: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/admin/edit-email-template/${emailID}`)
+               .pipe(
+                 map((data: any) => {
+                   if(data.code == 1) {
+                    return data;
+                   } else {
+                     return data;
+                   }
+                 })
+               );
+  }
+  
+   /**
+   * A method that update email data to server
+   * @param formData The form data
+   * @returns {any} An observable containing the emailtemplate data
+   */
+  updateEmailTemplate(formData: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/admin/update-email-template`, formData);
+  }
+
+  /**
+   * A method return tinyApiKey
+   */
+  getTinyApiKey(){
+      return this.tinyApiKey;
   }
 
   /**
