@@ -31,4 +31,8 @@ Route::group(['prefix' => 'admin',  'middleware' =>['auth:api']], function() {
     Route::post('upload-audio', 'AdminController@uploadAudio');
     Route::get('audio-list', 'AdminController@audioList');
     Route::delete('delete-audio/{id}', 'AdminController@deleteAudio');
+    Route::post('add-source', 'AdminController@addSource');
+    Route::get('source-list', 'AdminController@sourceList');
+    Route::get('get-source/{id}', 'AdminController@getSingleSource');
+    Route::delete('delete-source/{id}', 'AdminController@deleteSource');
 });

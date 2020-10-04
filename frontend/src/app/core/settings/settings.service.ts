@@ -36,7 +36,7 @@ export class SettingsService {
             isFloat: false,
             asideHover: false,
             theme: null,
-            asideScrollbar: false,
+            asideScrollbar: true,
             isCollapsedText: false,
             useFullLayout: false,
             hiddenFooter: false,

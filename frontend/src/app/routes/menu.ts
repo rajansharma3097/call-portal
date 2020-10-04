@@ -12,8 +12,14 @@ const Admin = {
   submenu: [
       {
           text: 'Audio',
-          link: '/admin/audio-list'
+          link: '/admin/audio-list',
+          // icon: 'icon-music-tone'
       },
+      {
+          text: 'Source',
+          link: '/admin/source-list',
+          // icon: 'icon-tag'
+    },
   ]
 };
 

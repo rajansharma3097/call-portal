@@ -1,0 +1,32 @@
+<div class="content-heading">
+  <div>Add Source</div>
+</div>
+<div class="col-md-12">
+  <!-- START card-->
+  <div class="card card-default">
+      <!-- <div class="card-header">Horizontal form</div> -->
+      <div class="card-body">
+        <form novalidate [formGroup]="sourceForm" (submit)="submit($event, sourceForm.value)">
+
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label"
+                    for="sourceNameId">Source Name</label>
+              <div class="col-md-8">
+                <input formControlName="sourceName" id="sourceNameId" type="text" class="form-control border-right-0" placeholder="Enter Source Name" autocomplete="off" required [ngClass]="{'is-invalid': (sourceForm.get('sourceName').touched ||
+                sourceForm.get('sourceName').dirty) &&
+                !sourceForm.get('sourceName').valid }"/>
+                <div class="text-danger" *ngIf="sourceForm.controls['sourceName'].hasError('required') && (sourceForm.controls['sourceName'].dirty || sourceForm.controls['sourceName'].touched)">This field is required</div>
+              </div>
+            </div>
+          <div class="form-group row">
+            <label class="col-xl-2 col-form-label"></label>
+            <div class="col-xl-8">
+                <button class="btn btn-sm btn-primary mr-1" type="submit">Submit</button>
+                <button class="btn btn-sm btn-danger" type="button" [routerLink]="['/admin/source-list']"> Cancel</button>
+            </div>
+        </div>
+        </form>
+      </div>
+  </div>
+</div>
+

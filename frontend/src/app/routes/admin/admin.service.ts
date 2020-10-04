@@ -21,6 +21,14 @@ export class AdminService {
   }
 
   /**
+   * Add Source
+   * @param postData
+   */
+  addSource(postData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/admin/add-source`, postData);
+  }
+
+  /**
    * A method that fetch audios from server
    * @param page The selected page
    * @returns {any} An observable containing the audio data
@@ -39,11 +47,45 @@ export class AdminService {
   }
 
   /**
+   * A method that fetch source from server
+   * @param page The selected page
+   * @returns {any} An observable containing the audio data
+   */
+  getSourceListing(page: Page): Observable<any> {
+    return this.http.get(`${this.baseUrl}/admin/source-list?page=${page.pageNumber}`)
+               .pipe(
+                 map((data: any) => {
+                   if(data.code == 1) {
+                    return this.getPagedData(page, data)
+                   } else {
+                     return data;
+                   }
+                 })
+               );
+  }
+
+  /**
+   * Get Source By SourceId
+   * @param sourceId
+   */
+  getSourceById(sourceId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/admin/get-source/${sourceId}`);
+  }
+
+  /**
    * A method to delete audio
    * @param audioId Audio that need to delete
    */
   deleteAudio(audioId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/admin/delete-audio/${audioId}`);
+  }
+
+  /**
+   * A method to delete source
+   * @param sourceId Source that need to delete
+   */
+  deleteSource(sourceId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/admin/delete-source/${sourceId}`);
   }
 
   /**
