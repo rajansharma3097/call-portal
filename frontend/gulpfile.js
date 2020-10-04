@@ -20,9 +20,9 @@ gulp.task('dist', function(done) {
     rimraf.sync('./../backend/resources/views/index.html');
 
     //copy dist folder into laravel public folder
-    gulp.src(['./dist/**/*', '!./dist/index.html']).pipe(gulp.dest('./../backend/public'));
+    //gulp.src(['./dist/**/*', '!./dist/index.html']).pipe(gulp.dest('./../backend/public'));
 
-    gulp.src(['./dist/index.html']).pipe(gulp.dest('./../backend/resources/views'));
+    //gulp.src(['./dist/index.html']).pipe(gulp.dest('./../backend/resources/views'));
 
     done();
 });
