@@ -13,6 +13,9 @@
 @import "./app/shared/styles/app.scss";
 // Toastr
 @import '~ngx-toastr/toastr.css';
+//Loader
+@import '~loaders.css/loaders.css';
+@import '~spinkit/css/spinkit.css';
 // Datatable
 @import '~@swimlane/ngx-datatable/index.css';
 @import '~@swimlane/ngx-datatable/themes/bootstrap.css';
@@ -82,3 +85,5 @@
 .ngx-datatable.bootstrap .datatable-body .datatable-body-row.datatable-row-even {
   background-color: rgba(0, 0, 0, 0.025);
 }
+
+

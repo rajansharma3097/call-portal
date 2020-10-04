@@ -17,11 +17,20 @@ const Admin = {
         },
 
         {
+            text: 'Source',
+            link: '/admin/source-list',
+            // icon: 'icon-tag'
+       },
+
+        {
             text: 'Email Template',
             link: '/admin/email-template-list',
             icon: 'icon-envelope'
         },
+
+    
     ]
+
 };
 
 const headingMain = {

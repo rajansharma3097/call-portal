@@ -1,29 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { ColumnMode } from '@swimlane/ngx-datatable';
-
-import { AdminService } from '../admin.service';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from '../../../../environments/environment';
-import { Page } from '../../../shared/page';
+import { Page } from 'src/app/shared/page';
+import { AdminService } from '../admin.service';
 
 const swal = require('sweetalert');
 
 @Component({
-  selector: 'app-audio-list',
-  templateUrl: './audio-list.component.html',
-  styleUrls: ['./audio-list.component.scss']
+  selector: 'app-source-list',
+  templateUrl: './source-list.component.html',
+  styleUrls: ['./source-list.component.scss']
 })
-export class AudioListComponent implements OnInit {
+export class SourceListComponent implements OnInit {
 
   @ViewChild(DatatableComponent, { static: true }) table: DatatableComponent;
   @ViewChild('myTable', { static: true }) tableExp: any;
 
-  public apiHost = environment.apiHost;
   rows = [];
   page = new Page();
   loading = false;
-  // columns = [{ prop: 'ID' }, { name: 'Audio Name' }, { name: 'Play' }];
+
   constructor(
     private adminService: AdminService,
     private toastr: ToastrService
@@ -33,13 +29,13 @@ export class AudioListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAudioList({ offset: 0 });
+    this.getSourceList({ offset: 0 });
   }
 
-  getAudioList(pageInfo) {
+  getSourceList(pageInfo) {
     this.page.pageNumber = pageInfo.offset + 1;
     this.loading = true;
-    this.adminService.getAudioListing(this.page)
+    this.adminService.getSourceListing(this.page)
         .subscribe(res => {
           if(res.code == 1) {
             this.rows = res.data ?? [];
@@ -50,11 +46,7 @@ export class AudioListComponent implements OnInit {
         });
   }
 
-  onSort(ev) {
-    console.log(ev);
-  }
-
-  onAudioDelete(audioId: number) {
+  onSourceDelete(audioId: number) {
 
     swal({
         title: 'Are you sure?',
@@ -73,22 +65,19 @@ export class AudioListComponent implements OnInit {
     }).then((data) => {
       if(data) {
         this.loading = true;
-        this.adminService.deleteAudio(audioId)
+        this.adminService.deleteSource(audioId)
             .subscribe(res => {
               if(res.code == 1) {
                 this.toastr.success(res.message, "Success");
-                this.getAudioList({ offset: this.page.pageNumber-1 });
+                this.getSourceList({ offset: this.page.pageNumber-1 });
               } else {
                 this.toastr.error(res.message, "Error");
               }
               this.loading = false;
             });
-          }
-      });
-  }
+      }
+    });
 
-  updateFilter(event) {
-    console.log(event.target.value.toLowerCase());
   }
 
 }

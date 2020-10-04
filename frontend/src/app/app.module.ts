@@ -11,7 +11,10 @@ import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
-import { AuthInterceptor } from './core/auth/auth.interceptor';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { LoaderInterceptor } from './core/interceptors/loader-interceptor.service';
+import { MyLoaderComponent } from './shared/components/my-loader/my-loader.component';
+import { LoaderService } from './shared/services/loader.service';
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -21,6 +24,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
     declarations: [
         AppComponent,
+        MyLoaderComponent
     ],
     imports: [
         HttpClientModule,
@@ -37,11 +41,11 @@ export function createTranslateLoader(http: HttpClient) {
             }
         })
     ],
-    providers: [{
-        provide: HTTP_INTERCEPTORS,
-        useClass: AuthInterceptor,
-        multi: true
-      }],
+    providers: [
+      LoaderService,
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
