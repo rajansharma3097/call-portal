@@ -22,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [UploadAudioComponent, AudioListComponent, AddSourceComponent, SourceListComponent,EmailTemplateListComponent],
+  declarations: [UploadAudioComponent, AudioListComponent, AddSourceComponent, SourceListComponent,EmailTemplateListComponent,EditEmailTemplateComponent],
   imports: [
     SharedModule,
     EditorModule,
