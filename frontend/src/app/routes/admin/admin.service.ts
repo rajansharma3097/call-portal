@@ -14,6 +14,7 @@ import { PagedData } from '../../shared/paged-data';
 export class AdminService {
 
   private baseUrl = environment.apiUrl;
+  private tinyApiKey = environment.tinyApiKey;
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   uploadAudio(formData: FormData): Observable<any> {
@@ -35,15 +36,15 @@ export class AdminService {
    */
   getAudioListing(page: Page): Observable<any> {
     return this.http.get(`${this.baseUrl}/admin/audio-list?page=${page.pageNumber}`)
-               .pipe(
-                 map((data: any) => {
-                   if(data.code == 1) {
-                    return this.getPagedData(page, data)
-                   } else {
-                     return data;
-                   }
-                 })
-               );
+      .pipe(
+        map((data: any) => {
+          if (data.code == 1) {
+            return this.getPagedData(page, data)
+          } else {
+            return data;
+          }
+        })
+      );
   }
 
   /**
@@ -53,15 +54,15 @@ export class AdminService {
    */
   getSourceListing(page: Page): Observable<any> {
     return this.http.get(`${this.baseUrl}/admin/source-list?page=${page.pageNumber}`)
-               .pipe(
-                 map((data: any) => {
-                   if(data.code == 1) {
-                    return this.getPagedData(page, data)
-                   } else {
-                     return data;
-                   }
-                 })
-               );
+      .pipe(
+        map((data: any) => {
+          if (data.code == 1) {
+            return this.getPagedData(page, data)
+          } else {
+            return data;
+          }
+        })
+      );
   }
 
   /**
@@ -81,9 +82,60 @@ export class AdminService {
   }
 
   /**
-   * A method to delete source
-   * @param sourceId Source that need to delete
+   * A method that fetch audios from server
+   * @param page The selected page
+   * @returns {any} An observable containing the audio data
    */
+  getEmailListing(page: Page): Observable<any> {
+    return this.http.get(`${this.baseUrl}/admin/email-template-list?page=${page.pageNumber}`)
+      .pipe(
+        map((data: any) => {
+          if (data.code == 1) {
+            return this.getPagedData(page, data)
+          } else {
+            return data;
+          }
+        })
+      );
+  }
+
+  /**
+  * A method that fetch emaildata from server
+  * @param page The selected page
+  * @returns {any} An observable containing the emailtemplate data
+  */
+  getEmailtemplate(emailID: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/admin/edit-email-template/${emailID}`)
+      .pipe(
+        map((data: any) => {
+          if (data.code == 1) {
+            return data;
+          } else {
+            return data;
+          }
+        })
+      );
+  }
+
+  /**
+  * A method that update email data to server
+  * @param formData The form data
+  * @returns {any} An observable containing the emailtemplate data
+  */
+  updateEmailTemplate(formData: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/admin/update-email-template`, formData);
+  }
+
+  /**
+   * A method return tinyApiKey
+   */
+  getTinyApiKey() {
+    return this.tinyApiKey;
+
+  }
+  /*A method to delete source
+  * @param sourceId Source that need to delete
+  */
   deleteSource(sourceId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/admin/delete-source/${sourceId}`);
   }
@@ -93,7 +145,7 @@ export class AdminService {
    * @param page The page data used to get the selected data from companyData
    * @returns {PagedData<CorporateEmployee>} An array of the selected data and page
    */
-  private getPagedData(page: Page, data: any ): PagedData<any> {
+  private getPagedData(page: Page, data: any): PagedData<any> {
     const pagedData = new PagedData<any>();
     page.totalElements = data.data.total;
     page.totalPages = page.totalElements / data.data.per_page;

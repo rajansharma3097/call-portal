@@ -8,6 +8,7 @@ import { PagesModule } from './pages/pages.module';
 import { menu } from './menu';
 import { routes } from './routes';
 
+
 @NgModule({
     imports: [
         SharedModule,

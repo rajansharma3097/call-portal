@@ -101,7 +101,7 @@
             ],
             "scripts": [
               "src/app/core/wrapper/wrapper.js",
-              "src/app/core/preloader/preloader.js"
+              "src/app/core/preloader/preloader.js"   
             ]
           }
         },

@@ -6,21 +6,31 @@ const Home = {
 };
 
 const Admin = {
-  text: 'Admin',
-  link: '/admin',
-  icon: 'icon-user',
-  submenu: [
-      {
-          text: 'Audio',
-          link: '/admin/audio-list',
-          // icon: 'icon-music-tone'
-      },
-      {
-          text: 'Source',
-          link: '/admin/source-list',
-          // icon: 'icon-tag'
-    },
-  ]
+    text: 'Admin',
+    link: '/admin',
+    icon: 'icon-user',
+    submenu: [
+        {
+            text: 'Audio',
+            link: '/admin/audio-list',
+            icon:' fa-file-audio'
+        },
+
+        {
+            text: 'Source',
+            link: '/admin/source-list',
+            // icon: 'icon-tag'
+       },
+
+        {
+            text: 'Email Template',
+            link: '/admin/email-template-list',
+            icon: 'icon-envelope'
+        },
+
+    
+    ]
+
 };
 
 const headingMain = {
