@@ -15,8 +15,13 @@ class AuthController extends Controller
             'email'    => 'email | required | unique:users',
             'password' => 'required'
         ]);
-        $user        = User::create($validateData);
-        $accessToken = $user->createToken('authToken')->accessToken;
+
+        //$post             = array();
+        // $post['name']     = $request->name;
+        // $post['email']    = $request->email;
+        // $post['password'] = bcrypt($request->password);
+        $user             = User::create($request->all());
+        $accessToken      = $user->createToken('authToken')->accessToken;
         return response(['user' => $user, 'access_token' => $accessToken]);
     }
 }

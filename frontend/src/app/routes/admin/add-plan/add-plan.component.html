@@ -1,0 +1,75 @@
+<div class="content-heading">
+    <div>
+        Add Plan
+    </div>
+</div>
+<div class="col-md-12">
+    <!-- START card-->
+    <div class="card card-default">
+        <!-- <div class="card-header">Horizontal form</div> -->
+        <div class="card-body">
+            <form class="form-horizontal" [formGroup]="myForm" (submit)="submit($event, myForm.value)">
+
+                <div class="row">
+
+                    <div class="col-md-8">
+
+                        <div class="form-group row">
+                            <label class="col-xl-2 col-form-label" for="title">Plan Name</label>
+                            <div class="col-xl-8">
+                                <input formControlName="plan_name" id="plan_name" type="text"
+                                    class="form-control border-right-0" placeholder="Enter Plan Name" autocomplete="off"
+                                    required="">
+                                <div class="text-danger"
+                                    *ngIf="myForm.controls['plan_name'].hasError('required') && (myForm.controls['plan_name'].dirty || myForm.controls['plan_name'].touched)">
+                                    This field is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-2 col-form-label" for="subject">Signup Cost</label>
+                            <div class="col-xl-8">
+                                <input formControlName="signup_cost" id="signup_cost" type="text"
+                                    class="form-control border-right-0" placeholder="Enter Signup Cost"
+                                    autocomplete="off" required="">
+                                <div class="text-danger"
+                                    *ngIf="myForm.controls['signup_cost'].hasError('required') && (myForm.controls['signup_cost'].dirty || myForm.controls['signup_cost'].touched)">
+                                    This field is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-xl-2 col-form-label" for="name">Plan Description</label>
+                            <div class="col-xl-12">
+
+                                <editor formControlName="plan_description" [init]="{plugins: 'link'}"
+                                    [apiKey]="tinyApiKey">
+                                </editor>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-4">
+                        <h4> Token</h4>
+                        <ul class="list-group">
+                            <li *ngFor="let item of email_token; let i = index" style="cursor: pointer;"
+                                class="list-group-item" (dblclick)=selecttoken(item)>
+                                {{item}}
+                            </li>
+                        </ul>
+                    </div> -->
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-xl-2 col-form-label"></label>
+                    <div class="col-xl-8">
+                        <button class="btn btn-sm btn-primary mr-1" type="submit">Submit</button>
+                        <button class="btn btn-sm btn-danger" type="button" [routerLink]="['/admin/plan-list']">
+                            Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END card-->
+</div>

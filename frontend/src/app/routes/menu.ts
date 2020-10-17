@@ -13,19 +13,25 @@ const Admin = {
         {
             text: 'Audio',
             link: '/admin/audio-list',
-            icon:' fa-file-audio'
+            icon: 'icon-volume-1'
         },
 
         {
             text: 'Source',
             link: '/admin/source-list',
-            // icon: 'icon-tag'
+            icon: 'icon-tag'
        },
 
         {
             text: 'Email Template',
             link: '/admin/email-template-list',
             icon: 'icon-envelope'
+        },
+
+        {
+            text: 'Plan',
+            link: '/admin/plan-list',
+            icon: 'icon-settings'
         },
 
     
