@@ -39,7 +39,7 @@ export class PlanListComponent implements OnInit {
   */
   getPlanList(pageInfo) {
 
-    console.log("hiiii");
+    //console.log("hiiii");
     this.page.pageNumber = pageInfo.offset + 1;
     this.loading = true;
     this.adminService.getPlanListing(this.page)

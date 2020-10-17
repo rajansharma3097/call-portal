@@ -28,7 +28,7 @@ export class AddPlanComponent implements OnInit {
     private toastr: ToastrService,) { }
 
   ngOnInit(): void {
-    this.plan_id = this.route.snapshot.params['plan_id'];
+    this.plan_id = this.route.snapshot.params['id'];
     if (this.plan_id > 0) {
       this.getPlanById(this.plan_id);
     }
