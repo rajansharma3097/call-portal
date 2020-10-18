@@ -24,12 +24,12 @@ Route::middleware(['auth:api'])->get('/token/revoke', function (Request $request
             'revoked' => true
         ]);
     return response()->json('DONE');
-}); 
+});
 
-Route::post('/signup','AuthController@signup');
+Route::post('/signup', 'AuthController@signup');
 
 /** Route Prefix for Admin Routes */
-Route::group(['prefix' => 'admin',  'middleware' =>['auth:api']], function() {
+Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
     Route::post('upload-audio', 'AdminController@uploadAudio');
     Route::get('audio-list', 'AdminController@audioList');
     Route::delete('delete-audio/{id}', 'AdminController@deleteAudio');
@@ -38,18 +38,25 @@ Route::group(['prefix' => 'admin',  'middleware' =>['auth:api']], function() {
     Route::get('source-list', 'AdminController@sourceList');
     Route::get('get-source/{id}', 'AdminController@getSingleSource');
     Route::delete('delete-source/{id}', 'AdminController@deleteSource');
-    
 });
 
 /*
 *AdminEmail template Routing
 */
-Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']
-], function () {
+Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
 
     Route::get('email-template-list',     'EmailTemplateController@list');
-    Route::get('edit-email-template/{id}','EmailTemplateController@get');
+    Route::get('edit-email-template/{id}', 'EmailTemplateController@get');
     Route::post('update-email-template',  'EmailTemplateController@update');
-
 });
 
+/*
+*Plan Routing
+*/
+Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
+
+    Route::get('plan-list',     'PlanController@list');
+    Route::get('edit-plan/{id}', 'PlanController@get');
+    Route::post('add-plan',     'PlanController@add');
+    Route::delete('delete-plan/{id}',  'PlanController@delete');
+});

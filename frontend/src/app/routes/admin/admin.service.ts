@@ -140,6 +140,62 @@ export class AdminService {
     return this.http.delete(`${this.baseUrl}/admin/delete-source/${sourceId}`);
   }
 
+
+  /**
+  * A method that fetch plan from server
+  * @param page The selected page
+  * @returns {any} An observable containing the audio data
+  */
+  getPlanListing(page: Page): Observable<any> {
+    return this.http.get(`${this.baseUrl}/admin/plan-list?page=${page.pageNumber}`)
+      .pipe(
+        map((data: any) => {
+          if (data.code == 1) {
+            return this.getPagedData(page, data)
+          } else {
+            return data;
+          }
+        })
+      );
+  }
+
+  /**
+ * A method that update and add data to server
+ * @param formData The form data
+ * @returns {any} An observable containing the addPlan data
+ */
+  addPlan(formData: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/admin/add-plan`, formData);
+  }
+
+
+  /**
+    * A method that fetch planData from server
+    * @param page The selected page
+    * @returns {any} An observable containing the planEdit data
+    */
+  getPlan(planID: number): Observable<any> {
+    
+    return this.http.get(`${this.baseUrl}/admin/edit-plan/${planID}`)
+      .pipe(
+        map((data: any) => {
+          if (data.code == 1) {
+            return data;
+          } else {
+            return data;
+          }
+        })
+      );
+  }
+
+   /* A method to delete Plan
+    * @param planId Plan that need to delete
+    */
+  deletePlan(planId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/admin/delete-plan/${planId}`);
+  }
+
+
   /**
    * Package companyData into a PagedData object based on the selected Page
    * @param page The page data used to get the selected data from companyData
