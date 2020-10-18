@@ -13,7 +13,7 @@ const Admin = {
         {
             text: 'Audio',
             link: '/admin/audio-list',
-            icon:' fa-file-audio'
+            // icon:' fa-file-audio'
         },
 
         {
@@ -25,7 +25,7 @@ const Admin = {
         {
             text: 'Email Template',
             link: '/admin/email-template-list',
-            icon: 'icon-envelope'
+            // icon: 'icon-envelope'
         },
 
     
