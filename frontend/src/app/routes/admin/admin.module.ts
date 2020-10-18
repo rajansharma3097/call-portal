@@ -9,6 +9,8 @@ import { EditEmailTemplateComponent } from './edit-email-template/edit-email-tem
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AddSourceComponent } from './add-source/add-source.component';
 import { SourceListComponent } from './source-list/source-list.component';
+import { PlanListComponent } from './plan-list/plan-list.component';
+import { AddPlanComponent } from './add-plan/add-plan.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'admin' },
@@ -19,10 +21,13 @@ const routes: Routes = [
   { path: 'add-source', component: AddSourceComponent },
   { path: 'edit-source/:id', component: AddSourceComponent },
   { path: 'source-list', component: SourceListComponent },
+  { path: 'plan-list', component: PlanListComponent },
+  { path: 'add-plan', component: AddPlanComponent },
+  { path: 'edit-plan/:id', component: AddPlanComponent },
 ];
 
 @NgModule({
-  declarations: [UploadAudioComponent, AudioListComponent, AddSourceComponent, SourceListComponent,EmailTemplateListComponent],
+  declarations: [UploadAudioComponent, AudioListComponent, AddSourceComponent, SourceListComponent,EmailTemplateListComponent,EditEmailTemplateComponent, PlanListComponent, AddPlanComponent],
   imports: [
     SharedModule,
     EditorModule,
