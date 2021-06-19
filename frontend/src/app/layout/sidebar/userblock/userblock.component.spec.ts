@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 
 import { UserblockComponent } from './userblock.component';
 import { UserblockService } from './userblock.service';
@@ -13,7 +13,7 @@ describe('Component: Userblock', () => {
         }).compileComponents();
     });
 
-    it('should create an instance', async(inject([UserblockService], (userBlockService) => {
+    it('should create an instance', waitForAsync(inject([UserblockService], (userBlockService) => {
         let component = new UserblockComponent(userBlockService);
         expect(component).toBeTruthy();
     })));

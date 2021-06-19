@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EmailTemplateListComponent } from './email-template-list.component';
 
@@ -6,7 +6,7 @@ describe('EmailTemplateListComponent', () => {
   let component: EmailTemplateListComponent;
   let fixture: ComponentFixture<EmailTemplateListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ EmailTemplateListComponent ]
     })
