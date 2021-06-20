@@ -12,7 +12,7 @@ import { routes } from './routes';
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(routes),
+        RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
         PagesModule
     ],
     declarations: [],
