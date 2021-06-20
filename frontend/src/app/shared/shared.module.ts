@@ -23,6 +23,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { IMaskModule } from 'angular-imask';
 
 import { FlotDirective } from './directives/flot/flot.directive';
 import { SparklineDirective } from './directives/sparkline/sparkline.directive';
@@ -62,7 +63,8 @@ import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
           positionClass: 'toast-bottom-right',
           preventDuplicates: true,
         }),
-        NgxDatatableModule
+        NgxDatatableModule,
+        IMaskModule
     ],
     providers: [
         ColorsService
@@ -109,7 +111,8 @@ import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
         NowDirective,
         ScrollableDirective,
         JqcloudDirective,
-        NgxDatatableModule
+        NgxDatatableModule,
+        IMaskModule
     ]
 })
 

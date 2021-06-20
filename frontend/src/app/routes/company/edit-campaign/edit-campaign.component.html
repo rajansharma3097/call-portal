@@ -1,0 +1,108 @@
+<div class="col-md-12">
+    <!-- START card-->
+    <div class="card card-default">
+        <!-- <div class="card-header">Horizontal form</div> -->
+        <div class="card-body">
+            <form class="form-horizontal" [formGroup]="campaignForm" (submit)="submit($event, companyForm.value)">
+                <accordion [closeOthers]="false">
+                    <accordion-group panelClass="b0 mb-2" [isOpen]="open" >
+                        <div accordion-heading (click)="open = !open">
+                            <small>
+                                <em class="fa text-primary mr-2" [ngClass]="{'fa-minus': open, 'fa-plus': !open}"></em>
+                            </small>
+                            <span>Campaign Name & Phone Number</span>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label class="col-xl-12 col-form-label" for="company_id">Select Company</label>
+                                <div class="col-xl-7">
+                                    <select formControlName="company_id" id="company_id" class="form-control" required="">
+                                        <option value="">--Select Company--</option>
+                                        <option *ngFor="let company of companies$ | async" [value]="company.id">{{company.company_name}}</option>
+                                    </select>
+                                    <div class="text-danger" *ngIf="campaignForm.controls['company_id'].hasError('required') && (campaignForm.controls['company_id'].dirty || campaignForm.controls['company_id'].touched)">This field is required</div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <button type="button" class="btn btn-primary" [routerLink]="['/company/add-company']"><em class="fa fa-plus"></em> Add Company</button>
+                                </div>
+                                <label class="col-xl-12 col-form-label" for="campaign_name">Campaign Name <small>Example: Plumber Leads (Seattle)</small></label>
+                                <div class="col-xl-12">
+                                    <input formControlName="campaign_name" id="campaign_name" type="text" class="form-control" placeholder="Enter Campaign Name" autocomplete="off" required="">
+                                    <div class="text-danger" *ngIf="campaignForm.controls['campaign_name'].hasError('required') && (campaignForm.controls['campaign_name'].dirty || campaignForm.controls['campaign_name'].touched)">This field is required</div>
+                                </div>
+                                <div class="col-xl-12 no-padding">
+                                    <label class="col-xl-6 col-form-label" for="country_id">Select Country</label>
+                                    <label class="col-xl-6 col-form-label" for="country_id">Campaign Phone Number</label>
+                                    <div class="col-xl-6">
+                                        <select formControlName="country_id" id="country_id" class="form-control" required="">
+                                            <option value="">--Select Country--</option>
+                                            <option *ngFor="let country of countries$ | async" [value]="country.id">{{country.country_name}} ({{country.country_code}})</option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="campaignForm.controls['country_id'].hasError('required') && (campaignForm.controls['country_id'].dirty || campaignForm.controls['country_id'].touched)">This field is required</div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <input formControlName="phone_number" id="phone_number" type="text" class="form-control" placeholder="Enter Phone Number without Country Code" [imask]="{mask: mask}" autocomplete="off" required="">
+                                        <div class="text-danger" *ngIf="campaignForm.controls['phone_number'].hasError('required') && (campaignForm.controls['phone_number'].dirty || campaignForm.controls['phone_number'].touched)">This field is required</div>
+                                    </div>
+                                </div>
+                                <label class="col-xl-12 col-form-label" for="notes">Campaign Notes</label>
+                                <div class="col-xl-12">
+                                    <textarea formControlName="notes" id="notes" type="text" class="form-control"></textarea>
+                                    <div class="text-danger" *ngIf="campaignForm.controls['notes'].hasError('required') && (campaignForm.controls['notes'].dirty || campaignForm.controls['notes'].touched)">This field is required</div>
+                                </div>
+                                <label class="col-xl-12 col-form-label" for="timezone_id">TimeZone</label>
+                                <div class="col-xl-12">
+                                    <select formControlName="timezone_id" id="timezone_id" class="form-control" required="">
+                                        <option value="">--Select Timezone--</option>
+                                        <option *ngFor="let timezone of timezones$ | async" [value]="timezone.id">{{timezone.name}}</option>
+                                    </select>
+                                    <div class="text-danger" *ngIf="campaignForm.controls['timezone_id'].hasError('required') && (campaignForm.controls['timezone_id'].dirty || campaignForm.controls['timezone_id'].touched)">This field is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </accordion-group>
+                    <accordion-group panelClass="b0 mb-2" [isOpen]="open1" >
+                        <div accordion-heading (click)="open1 = !open1">
+                            <small>
+                                <em class="fa text-primary mr-2" [ngClass]="{'fa-minus': open1, 'fa-plus': !open1}"></em>
+                            </small>
+                            <span>Opening & Closing Hours (Optional)</span>
+                        </div>
+                        <div class="form-group row" formGroupName="operatingHrs">
+                            <div class="col-sm-6">
+                                <div class="c-radio">
+                                    <label>
+                                        <input type="radio" formControlName="is_opened" [value]="0" [formControl]="campaignForm.controls['is_opened']" />
+                                        <span class="fa fa-circle"></span>I prefer not to specify operating hours.</label>
+                                </div>
+                                <div class="c-radio">
+                                    <label>
+                                        <input type="radio" formControlName="is_opened" [value]="1" [formControl]="campaignForm.controls['is_opened']" />
+                                        <span class="fa fa-circle"></span>My operating hours are:</label>
+                                </div>
+                                <div *ngIf="campaignForm.value.is_opened==1" class="row">
+                                    <div formArrayName="daySchedule" *ngFor="let x of daySchedule.controls;let i=index;trackBy:track">
+                                        <ng-container [formGroupName]="i">
+                                            <label class="col-sm-2 col-form-label">Mon:</label>
+                                            <select class="form-control col-sm-3" formControlName="openTime" >
+                                                <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
+                                            </select>
+                                            <select class="form-control col-sm-3" formControlName="closeTime">
+                                                <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
+                                            </select>
+                                            <div class="checkbox c-checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" formControlName="isClosed" />
+                                                    <span class="fa fa-check"></span>Closed</label>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </accordion-group>
+                </accordion>
+            </form>
+        </div>
+    </div>
+</div>

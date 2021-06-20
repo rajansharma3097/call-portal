@@ -60,3 +60,27 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
     Route::post('add-plan',     'PlanController@add');
     Route::delete('delete-plan/{id}',  'PlanController@delete');
 });
+
+/**
+ * Company Routes
+ */
+Route::group(['middleware' => ['auth:api']], function () {
+
+    Route::post('add-company', 'CompanyController@addCompany');
+    Route::get('company-list', 'CompanyController@companyList');
+    Route::get('get-company/{id}', 'CompanyController@getCompanyById');
+    Route::delete('delete-company/{id}', 'CompanyController@deleteCompany');
+    Route::get('campaign-list', 'CompanyController@campaignList');
+    Route::get('get-companies', 'CompanyController@activeCompaniesList');
+    Route::get('get-campaign/{id}', 'CompanyController@getCampaignById');
+});
+
+
+/**
+ * Common Routes
+ */
+Route::group(['middleware' => ['auth:api']], function () {
+
+    Route::get('get-countries', 'CommonController@countryList');
+    Route::get('get-timezones', 'CommonController@timezoneList');
+});

@@ -5,6 +5,22 @@ const Home = {
     icon: 'icon-home'
 };
 
+const Company = {
+    text: 'Companies',
+    link: '/company',
+    icon: 'fa fas fa-building',
+    submenu: [
+        {
+            text: 'All Companies',
+            link: '/company/company-list'
+        },
+        {
+            text: 'All Campaigns',
+            link: '/company/campaign-list'
+        },
+    ]
+}
+
 const Admin = {
     text: 'Admin',
     link: '/admin',
@@ -47,5 +63,6 @@ const headingMain = {
 export const menu = [
     headingMain,
     Home,
+    Company,
     Admin
 ];
