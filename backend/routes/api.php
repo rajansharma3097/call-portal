@@ -1,6 +1,4 @@
 <?php
-
-use App\Http\Controllers\EmailTemplateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 Route::middleware(['auth:api'])->get('/token/revoke', function (Request $request) {
 
+
     DB::table('oauth_access_tokens')
         ->where('user_id', $request->user()->id)
         ->update([
@@ -30,10 +29,10 @@ Route::post('/signup', 'AuthController@signup');
 
 /** Route Prefix for Admin Routes */
 Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
+
     Route::post('upload-audio', 'AdminController@uploadAudio');
     Route::get('audio-list', 'AdminController@audioList');
     Route::delete('delete-audio/{id}', 'AdminController@deleteAudio');
-
     Route::post('add-source', 'AdminController@addSource');
     Route::get('source-list', 'AdminController@sourceList');
     Route::get('get-source/{id}', 'AdminController@getSingleSource');
@@ -60,3 +59,24 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
     Route::post('add-plan',     'PlanController@add');
     Route::delete('delete-plan/{id}',  'PlanController@delete');
 });
+
+/*
+ *UserSettings
+*/
+Route::group(['prefix' => 'user',  'middleware' => ['auth:api']], function () {
+
+    Route::post('save-twilio-settings',    'UsersSettingsController@saveTwilioCredentials');
+    Route::get('fetch-twilio-credentials', 'UsersSettingsController@fetchTwilioCredentials');
+    Route::delete('remove-credentials/{meta_key}','UsersSettingsController@removeCredentials');
+});
+
+/*
+ *User Credentials
+*/
+Route::group(['prefix' => 'user',  'middleware' => ['auth:api']], function () {
+
+    Route::post('change-password',    'UsersController@updatePassword');
+    Route::get('account-details',     'UsersController@getUserDetail');
+    Route::post('update-account',     'UsersSettingsController@updateAccountDetails');
+});
+
