@@ -1,0 +1,43 @@
+<div class="content-heading">
+  <div>Application Settings</div>
+</div>
+<div class="col-md-12">
+  <!-- START card-->
+  <div class="card card-default">
+    <!-- <div class="card-header">Horizontal form</div> -->
+    <div class="card-body">
+      <form novalidate [formGroup]="twilioForm" (submit)="submit($event, twilioForm.value)">
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="twilioAccountSid">Twilio Accoount Sid</label>
+          <div class="col-md-4">
+            <input formControlName="twilioAccountSid" id="twilioAccountSid" name="twilioAccountSid" type="text" class="form-control"
+              placeholder="Twilio Accoount Sid" autocomplete="off" required />
+            <div class="text-danger"
+              *ngIf="twilioForm.controls['twilioAccountSid'].hasError('required') && (twilioForm.controls['twilioAccountSid'].dirty || twilioForm.controls['twilioAccountSid'].touched)">
+              This field is required</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="auth">Twilio Auth Token</label>
+          <div class="col-md-4">
+            <input formControlName="twilioAuthToken"  id="twilioAuthToken" name="twilioAuthToken" type="text" class="form-control"
+              placeholder="Twilio Auth Token" autocomplete="off" required />
+
+            <div class="text-danger"
+              *ngIf="twilioForm.controls['twilioAuthToken'].hasError('required') && (twilioForm.controls['twilioAuthToken'].dirty || twilioForm.controls['twilioAuthToken'].touched)">
+              This field is required</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-xl-2 col-form-label"></label>
+          <div class="col-xl-8">
+            <button class="btn btn-sm btn-primary mr-1" type="submit">Save</button>
+            <button class="btn btn-sm btn-danger" type="button" (click)="removeTwilioCredenitals('twilio_credentials')">Remove</button> 
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

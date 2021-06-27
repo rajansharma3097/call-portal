@@ -60,6 +60,9 @@ export class RegisterComponent implements OnInit {
     }
 
     handleResponse(data) {
+
+        console.log(data);
+        //return false;
         this.tokenService.handle(data.access_token);
         this.router.navigate(['/home']);
     }
