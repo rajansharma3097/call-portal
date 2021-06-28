@@ -39,6 +39,36 @@ const Admin = {
 
 };
 
+const UserSettings = {
+    text: 'Settings',
+    link: '/User',
+    icon: 'icon-settings',
+    submenu:[{
+         
+        text:'Twilio Settings',
+        link:'/user/settings',
+        icon:'icon-phone'
+    },
+
+    {
+         
+        text:'Change Password',
+        link:'/user/change-passowrd',
+        icon:'icon-key'
+    },
+
+    {
+         
+        text:'Account',
+        link:'/user/account',
+        icon:'icon-user'
+    },
+
+
+  ]
+
+}
+
 const headingMain = {
     text: 'Main Navigation',
     heading: true
@@ -47,5 +77,7 @@ const headingMain = {
 export const menu = [
     headingMain,
     Home,
-    Admin
+    UserSettings,
+    Admin,
+    
 ];
