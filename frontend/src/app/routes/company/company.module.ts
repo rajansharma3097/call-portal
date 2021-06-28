@@ -6,6 +6,7 @@ import { AddCompanyComponent } from './add-company/add-company.component';
 import { CompanyListComponent } from './company-list/company-list.component';
 import { CampaignListComponent } from './campaign-list/campaign-list.component';
 import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   { path: '', redirectTo: 'company' },
@@ -18,12 +19,13 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    AddCompanyComponent, 
-    CompanyListComponent, 
-    CampaignListComponent, 
+    AddCompanyComponent,
+    CompanyListComponent,
+    CampaignListComponent,
     EditCampaignComponent
   ],
   imports: [
+    CommonModule,
     SharedModule,
     RouterModule.forChild(routes)
   ]

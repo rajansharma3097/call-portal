@@ -39,8 +39,7 @@ class CompanyController extends Controller
             $companyId = $request->id;
             $companyObject = new TblCompanies();
             $companyDetail = $companyObject->getCompanyById($companyId, $request->user()->id);
-            if(empty($companyDetail))
-            {
+            if (empty($companyDetail)) {
                 $companyObject->user_id        = $request->user()->id;
                 $companyObject->company_name = $request->company_name;
                 $companyObject->company_email = $request->company_email;
@@ -56,7 +55,7 @@ class CompanyController extends Controller
                 $companyObject->status = 1;
                 $companyObject->created_at = date('Y-m-d H:i:s');
                 $saved = $companyObject->save();
-                if( !$saved ) {
+                if (!$saved) {
                     return response()->json(['code' => 2, 'message' => 'Problem in saving data']);
                 }
 
@@ -79,13 +78,12 @@ class CompanyController extends Controller
                 $companyDetail->zip = $request->zip;
                 $companyDetail->updated_at  = date('Y-m-d H:i:s');
                 $updated = $companyDetail->update();
-                if( !$updated ) {
+                if (!$updated) {
                     return response()->json(['code' => 2, 'message' => 'Problem in updating data']);
                 }
                 $message = 'Company Updated Successfully.';
             }
-            return response()->json(['code' => 1, 'message' => $message] );
-
+            return response()->json(['code' => 1, 'message' => $message]);
         } catch (Exception $e) {
             return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
         }
@@ -94,7 +92,7 @@ class CompanyController extends Controller
     /**
      * Function to create campaign while creating company
      * @author RJay Sharma <sharma.rajan3097@gmail.com>
-    */
+     */
     private function createCampaign($companyId, Request $request)
     {
         try {
@@ -106,7 +104,6 @@ class CompanyController extends Controller
             $campaignObject->country_id = $request->country_id;
             $campaignObject->phone_number = $request->phone_number;
             $campaignObject->save();
-
         } catch (Exception $e) {
             return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
         }
@@ -121,8 +118,7 @@ class CompanyController extends Controller
      */
     public function companyList(Request $request)
     {
-        try 
-        {
+        try {
             $userId = $request->user()->id ?? 0;
 
             $companyObject = new TblCompanies();
@@ -140,11 +136,10 @@ class CompanyController extends Controller
      */
     public function deleteCompany(Request $request, $id)
     {
-        try 
-        {
+        try {
             $companyDelete = TblCompanies::findOrFail($id);
 
-            if( $companyDelete ) {
+            if ($companyDelete) {
                 $companyDelete->status = 0;
                 $companyDelete->updated_at = date('Y-m-d H:i:s');
                 $companyDelete->save();
@@ -155,7 +150,6 @@ class CompanyController extends Controller
         } catch (Exception $e) {
             return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
         }
-
     }
 
     /**
@@ -163,12 +157,11 @@ class CompanyController extends Controller
      */
     public function getCompanyById(Request $request, $id)
     {
-        try
-        {
+        try {
             $userId = $request->user()->id ?? 0;
             $companyObject = new TblCompanies();
             $sourceData   = $companyObject->getCompanyById($id, $userId);
-            if($sourceData) {
+            if ($sourceData) {
                 return response()->json(['code' => 1, 'companyDetail' => $sourceData]);
             } else {
                 return response()->json(['code' => 2, 'message' => "Company Detail Not Found"]);
@@ -186,10 +179,9 @@ class CompanyController extends Controller
      */
     public function campaignList(Request $request)
     {
-        try 
-        {
+        try {
             $userId = $request->user()->id ?? 0;
-            
+
             $campaignObject = new TblCampaigns();
             $companyList   = $campaignObject->getCampaignList($userId);
 
@@ -198,8 +190,8 @@ class CompanyController extends Controller
             return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
         }
     }
-    
-    
+
+
     /**
      * Get All Active Companies
      * @param Request $request
@@ -207,8 +199,7 @@ class CompanyController extends Controller
      */
     public function activeCompaniesList(Request $request)
     {
-        try 
-        {
+        try {
             $userId = $request->user()->id ?? 0;
             $countryList   = (new TblCompanies())->getAllActiveCompanies($userId);
             return response()->json(['code' => 1, 'data' => $countryList]);
@@ -222,12 +213,14 @@ class CompanyController extends Controller
      */
     public function getCampaignById(Request $request, $id)
     {
-        try
-        {
+        try {
             $userId = $request->user()->id ?? 0;
             $campaignObject = new TblCampaigns();
             $campaignData   = $campaignObject->getCampaignById($id, $userId);
-            if($campaignData) {
+            if ($campaignData) {
+                $campaignData['operating_hours'] = $campaignData['operating_hours']
+                                                   ? json_decode($campaignData['operating_hours'])
+                                                   : [];
                 return response()->json(['code' => 1, 'campaignDetail' => $campaignData]);
             } else {
                 return response()->json(['code' => 2, 'message' => "Campaign Detail Not Found"]);
@@ -237,4 +230,68 @@ class CompanyController extends Controller
         }
     }
 
+    /**
+     * Add/Update a Campaign
+     * @param Request $request
+     * @author RJay Sharma <sharma.rajan3097@gmail.com>
+     */
+    function addCampaign(Request $request)
+    {
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'campaign_name' => 'required | max:255',
+                'company_id'  => 'required',
+                'country_id'    => 'required',
+                'phone_number' => 'required',
+                'timezone_id' => 'required',
+
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['code' => 2, 'message' =>  $validator->messages()->first()]);
+            }
+
+            $campaignId = $request->id;
+            $campaignObject = new TblCampaigns();
+            $campaignDetail = $campaignObject->getCampaignById($campaignId, $request->user()->id);
+            $phoneNumber = preg_replace("/[^A-Za-z0-9]/", "", $request->phone_number);
+            if (empty($campaignDetail)) {
+                $campaignObject->user_id    = $request->user()->id;
+                $campaignObject->company_id = $request->company_id;
+                $campaignObject->campaign_name = $request->campaign_name;
+                $campaignObject->country_id = $request->country_id;
+                $campaignObject->phone_number = $phoneNumber;
+                $campaignObject->notes = $request->notes;
+                $campaignObject->timezone_id = $request->timezone_id;
+                $campaignObject->operating_hours = $request->operatingHrs;
+                $campaignObject->status = 1;
+                $campaignObject->created_at = date('Y-m-d H:i:s');
+                $saved = $campaignObject->save();
+                if (!$saved) {
+                    return response()->json(['code' => 2, 'message' => 'Problem in saving data']);
+                }
+
+                $message = 'Campaign Added Successfully.';
+            } else {
+                $campaignDetail->user_id    = $request->user()->id;
+                $campaignDetail->company_id = $request->company_id;
+                $campaignDetail->campaign_name = $request->campaign_name;
+                $campaignDetail->country_id = $request->country_id;
+                $campaignDetail->phone_number = $phoneNumber;
+                $campaignDetail->notes = $request->notes;
+                $campaignDetail->timezone_id = $request->timezone_id;
+                $campaignDetail->operating_hours = $request->operatingHrs;
+                $campaignDetail->updated_at  = date('Y-m-d H:i:s');
+                $updated = $campaignDetail->update();
+                if (!$updated) {
+                    return response()->json(['code' => 2, 'message' => 'Problem in updating data']);
+                }
+                $message = 'Campaign Updated Successfully.';
+            }
+            return response()->json(['code' => 1, 'message' => $message]);
+        } catch (Exception $e) {
+            return response()->json(['code' => 2, 'message' => print_r($e, true)]);
+        }
+    }
 }

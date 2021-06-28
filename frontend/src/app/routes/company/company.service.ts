@@ -17,7 +17,7 @@ export class CompanyService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Add Company
+   * Add/Update Company
    * @param postData
    */
   addCompany(postData: any): Observable<any> {
@@ -56,6 +56,14 @@ export class CompanyService {
    */
   deleteCompany(companyId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/delete-company/${companyId}`);
+  }
+
+  /**
+   * Add/Update Campaign
+   * @param postData
+   */
+   addUpdateCampaign(postData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/add-campaign`, postData);
   }
 
   /**
