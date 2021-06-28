@@ -28,8 +28,8 @@ export class AuthService {
 
   /**
    * Get an Access Token
-   * @param email 
-   * @param password 
+   * @param email
+   * @param password
    */
   login(email: string, password: string) {
     // return this.http.post(`${this.baseUrl}/login`, payLoad);
