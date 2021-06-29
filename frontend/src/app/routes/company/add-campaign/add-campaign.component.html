@@ -1,0 +1,90 @@
+<div class="content-heading">
+  <div>
+    Add A New Campaign
+  </div>
+</div>
+<div class="col-md-12">
+  <!-- START card-->
+  <div class="card card-default">
+    <!-- <div class="card-header">Horizontal form</div> -->
+    <div class="card-body">
+      <form class="form-horizontal" [formGroup]="campaignForm" (submit)="onSubmit($event)">
+        <div accordion-heading>
+          <span><strong>Campaign Name & Phone Number</strong></span>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="col-form-label" for="company_id">Select Company</label>
+                <select formControlName="company_id" id="company_id" class="form-control" required="">
+                  <option value="">--Select Company--</option>
+                  <option *ngFor="let company of companies$ | async" [value]="company.id">{{company.company_name}}
+                  </option>
+                </select>
+                <div class="text-danger"
+                  *ngIf="campaignForm.controls['company_id'].hasError('required') && (campaignForm.controls['company_id'].dirty || campaignForm.controls['company_id'].touched)">
+                  This field is required
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="col-form-label mt-33">&nbsp;</label>
+                <button type="button" class="btn btn-primary" [routerLink]="['/company/add-company']"><em
+                    class="fa fa-plus"></em> Add Company</button>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="col-form-label" for="campaign_name">Campaign Name <small>Example: Plumber Leads
+                    (Seattle)</small></label>
+                <input formControlName="campaign_name" id="campaign_name" type="text" class="form-control"
+                  placeholder="Enter Campaign Name" autocomplete="off" required="">
+                <div class="text-danger"
+                  *ngIf="campaignForm.controls['campaign_name'].hasError('required') && (campaignForm.controls['campaign_name'].dirty || campaignForm.controls['campaign_name'].touched)">
+                  This field is required</div>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="col-form-label" for="country_id">Select Country</label>
+                <select formControlName="country_id" id="country_id" class="form-control" required="">
+                  <option value="">--Select Country--</option>
+                  <option *ngFor="let country of countries$ | async" [value]="country.id">{{country.country_name}}
+                  </option>
+                </select>
+                <div class="text-danger"
+                  *ngIf="campaignForm.controls['country_id'].hasError('required') && (campaignForm.controls['country_id'].dirty || campaignForm.controls['country_id'].touched)">
+                  This field is required</div>
+              </div>
+              <div class="form-group col-md-1">
+                <label class="col-form-label" for="country_id">Country Code</label>
+                <input formControlName="phone_number" id="phone_number" type="text" class="form-control" value="+1" autocomplete="off" readonly>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="col-form-label" for="country_id">Phone Number</label>
+                <input formControlName="phone_number" id="phone_number" type="text" class="form-control" placeholder=""
+                  [imask]="{mask: mask}" autocomplete="off" required="">
+                <div class="text-danger"
+                  *ngIf="campaignForm.controls['phone_number'].hasError('required') && (campaignForm.controls['phone_number'].dirty || campaignForm.controls['phone_number'].touched)">
+                  This field is required</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="col-form-label" for="timezone_id">TimeZone</label>
+                <select formControlName="timezone_id" id="timezone_id" class="form-control" required="">
+                  <option value="">--Select Timezone--</option>
+                  <option *ngFor="let timezone of timezones$ | async" [value]="timezone.id">{{timezone.name}}</option>
+                </select>
+                <div class="text-danger"
+                  *ngIf="campaignForm.controls['timezone_id'].hasError('required') && (campaignForm.controls['timezone_id'].dirty || campaignForm.controls['timezone_id'].touched)">
+                  This field is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-primary mr-1" type="submit">Submit</button>
+        <button class="btn btn-sm btn-danger" type="button" [routerLink]="['/company/campaign-list']">
+          Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>

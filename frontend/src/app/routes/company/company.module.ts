@@ -7,6 +7,7 @@ import { CompanyListComponent } from './company-list/company-list.component';
 import { CampaignListComponent } from './campaign-list/campaign-list.component';
 import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
 import { CommonModule } from '@angular/common';
+import { AddCampaignComponent } from './add-campaign/add-campaign.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'company' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'edit-company/:id', component: AddCompanyComponent },
   { path: 'campaign-list', component: CampaignListComponent },
   { path: 'edit-campaign/:id', component: EditCampaignComponent },
+  { path: 'add-campaign', component: AddCampaignComponent },
 ]
 
 @NgModule({
@@ -22,7 +24,8 @@ const routes: Routes = [
     AddCompanyComponent,
     CompanyListComponent,
     CampaignListComponent,
-    EditCampaignComponent
+    EditCampaignComponent,
+    AddCampaignComponent
   ],
   imports: [
     CommonModule,

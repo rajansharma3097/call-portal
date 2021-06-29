@@ -26,7 +26,7 @@ export function createTranslateLoader(http: HttpClient) {
     declarations: [
         AppComponent,
         MyLoaderComponent,
-        
+
     ],
     imports: [
         HttpClientModule,
