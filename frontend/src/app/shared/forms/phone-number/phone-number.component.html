@@ -1,0 +1,26 @@
+<ng-container [formGroup]="phoneForm">
+  <div class="col-md-4 float-left">
+    <label class="col-form-label" for="country_id">Select Country</label>
+    <select formControlName="country_id" id="country_id" class="form-control" required="">
+      <option value="">--Select Country--</option>
+      <option *ngFor="let country of countries" [value]="country.id">{{country.country_name}}
+      </option>
+    </select>
+    <div class="text-danger"
+      *ngIf="phoneForm.controls['country_id'].hasError('required') && (phoneForm.controls['country_id'].dirty || phoneForm.controls['country_id'].touched)">
+      This field is required</div>
+  </div>
+  <div class="col-md-3 float-left">
+    <label class="col-form-label" for="country_code">Country Code</label>
+    <input id="country_code" [(ngModel)]="countryCode" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+      autocomplete="off" readonly>
+  </div>
+  <div class="col-md-5 float-left">
+    <label class="col-form-label" for="phone_number">Phone Number</label>
+    <input formControlName="phone_number" id="phone_number" type="text" class="form-control" placeholder=""
+      [imask]="{mask: mask}" autocomplete="off" required="">
+    <div class="text-danger"
+      *ngIf="phoneForm.controls['phone_number'].hasError('required') && (phoneForm.controls['phone_number'].dirty || phoneForm.controls['phone_number'].touched)">
+      This field is required</div>
+  </div>
+</ng-container>

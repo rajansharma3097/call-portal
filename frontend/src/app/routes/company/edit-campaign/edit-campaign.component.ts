@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { Observable } from "rxjs";
+import { PhoneNumberComponent } from "../../../shared/forms/phone-number/phone-number.component";
 import { CommonService } from "src/app/shared/services/common.service";
 import { CompanyService } from "../company.service";
 
@@ -12,6 +13,9 @@ import { CompanyService } from "../company.service";
   styleUrls: ["./edit-campaign.component.scss"],
 })
 export class EditCampaignComponent implements OnInit {
+
+  @ViewChild(PhoneNumberComponent, {static: true}) phoneForm: PhoneNumberComponent;
+
   countries$: Observable<Array<any>>;
   companies$: Observable<Array<any>>;
   timezones$: Observable<Array<any>>;
@@ -22,22 +26,11 @@ export class EditCampaignComponent implements OnInit {
   campaign_id: any;
   public mask: string;
   public countryCode = "+1";
-  campaignForm = new FormGroup({
-    id: new FormControl(0),
-    company_id: new FormControl("", [Validators.required]),
-    campaign_name: new FormControl(null, [Validators.required]),
-    country_id: new FormControl("", [Validators.required]),
-    phone_number: new FormControl("", [Validators.required]),
-    notes: new FormControl(""),
-    timezone_id: new FormControl("", [Validators.required]),
-    operatingHrs: new FormGroup({
-      is_opened: new FormControl(0, [Validators.required]),
-      daySchedule: new FormArray([]),
-    }),
-  });
+  public campaignForm: FormGroup;
 
   constructor(
     private commonService: CommonService,
+    private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private companyService: CompanyService,
@@ -47,6 +40,20 @@ export class EditCampaignComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.campaignForm = this.fb.group({
+      id: [0],
+      company_id: ["", [Validators.required]],
+      campaign_name: [null, [Validators.required]],
+      phone: this.phoneForm.createGroup(),
+      notes: [""],
+      timezone_id: ["", [Validators.required]],
+      operatingHrs: this.fb.group({
+        is_opened: [0, [Validators.required]],
+        daySchedule: this.fb.array([]),
+      }),
+    });
+
     this.makeHoursForm();
     this.campaign_id = this.route.snapshot.params["id"];
     if (this.campaign_id > 0) {
@@ -93,14 +100,15 @@ export class EditCampaignComponent implements OnInit {
           id: data.campaignDetail.id,
           company_id: data.campaignDetail.company_id,
           campaign_name: data.campaignDetail.campaign_name,
-          country_id: data.campaignDetail.country_id,
           notes: data.campaignDetail.notes,
-          phone_number: data.campaignDetail.phone_number,
           timezone_id: data.campaignDetail.timezone_id,
+          phone: this.phoneForm.patchForm({
+            country_id: data.campaignDetail.country_id,
+            phone_number: data.campaignDetail.phone_number,
+          })
         });
 
-        console.log(data.campaignDetail.operating_hours);
-        if(data.campaignDetail.operating_hours) {
+        if(data.campaignDetail.operating_hours.hasOwnProperty('is_opened')) {
           (<FormGroup>this.campaignForm.controls['operatingHrs']).controls['is_opened'].patchValue(data.campaignDetail.operating_hours.is_opened);
           (<FormGroup>this.campaignForm.controls['operatingHrs']).controls['daySchedule'].patchValue(data.campaignDetail.operating_hours.daySchedule);
           console.log(this.campaignForm);
@@ -108,7 +116,7 @@ export class EditCampaignComponent implements OnInit {
 
       } else {
         this.toastr.error("Company Detail not found", "404");
-        this.router.navigate(["/admin/source-list"]);
+        this.router.navigate(["/company/campaign-list"]);
       }
     });
   }
@@ -118,6 +126,7 @@ export class EditCampaignComponent implements OnInit {
     for (let c in this.campaignForm.controls) {
         this.campaignForm.controls[c].markAsTouched();
     }
+
     if (this.campaignForm.valid) {
 
       this.companyService.addUpdateCampaign(this.campaignForm.value)

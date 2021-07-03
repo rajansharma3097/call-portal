@@ -43,29 +43,8 @@
                   *ngIf="campaignForm.controls['campaign_name'].hasError('required') && (campaignForm.controls['campaign_name'].dirty || campaignForm.controls['campaign_name'].touched)">
                   This field is required</div>
               </div>
-              <div class="form-group col-md-2">
-                <label class="col-form-label" for="country_id">Select Country</label>
-                <select formControlName="country_id" id="country_id" class="form-control" required="">
-                  <option value="">--Select Country--</option>
-                  <option *ngFor="let country of countries$ | async" [value]="country.id">{{country.country_name}}
-                  </option>
-                </select>
-                <div class="text-danger"
-                  *ngIf="campaignForm.controls['country_id'].hasError('required') && (campaignForm.controls['country_id'].dirty || campaignForm.controls['country_id'].touched)">
-                  This field is required</div>
-              </div>
-              <div class="form-group col-md-1">
-                <label class="col-form-label" for="country_id">Country Code</label>
-                <input formControlName="phone_number" id="phone_number" type="text" class="form-control" value="+1" autocomplete="off" readonly>
-              </div>
-              <div class="form-group col-md-3">
-                <label class="col-form-label" for="country_id">Phone Number</label>
-                <input formControlName="phone_number" id="phone_number" type="text" class="form-control" placeholder=""
-                  [imask]="{mask: mask}" autocomplete="off" required="">
-                <div class="text-danger"
-                  *ngIf="campaignForm.controls['phone_number'].hasError('required') && (campaignForm.controls['phone_number'].dirty || campaignForm.controls['phone_number'].touched)">
-                  This field is required</div>
-              </div>
+              <!-- <app-phone-number class="form-group col-md-6" formControlName="phone"></app-phone-number> -->
+              <app-phone-number class="form-group col-md-6"></app-phone-number>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">

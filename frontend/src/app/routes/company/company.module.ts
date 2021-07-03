@@ -25,7 +25,7 @@ const routes: Routes = [
     CompanyListComponent,
     CampaignListComponent,
     EditCampaignComponent,
-    AddCampaignComponent
+    AddCampaignComponent,
   ],
   imports: [
     CommonModule,

@@ -10,76 +10,60 @@
               <span><strong>Campaign Name & Phone Number</strong></span>
             </div>
             <div class="form-group row acc-panel">
-              <div class="col-sm-7">
-                <label class="col-xl-12 col-form-label" for="company_id">Select Company</label>
-                <div class="col-xl-7">
-                  <select formControlName="company_id" id="company_id" class="form-control" required="">
-                    <option value="">--Select Company--</option>
-                    <option *ngFor="let company of companies$ | async" [value]="company.id">{{company.company_name}}
-                    </option>
-                  </select>
-                  <div class="text-danger"
-                    *ngIf="campaignForm.controls['company_id'].hasError('required') && (campaignForm.controls['company_id'].dirty || campaignForm.controls['company_id'].touched)">
-                    This field is required</div>
-                </div>
-                <div class="col-xl-3">
-                  <button type="button" class="btn btn-primary" [routerLink]="['/company/add-company']"><em
-                      class="fa fa-plus"></em> Add Company</button>
-                </div>
-                <label class="col-xl-12 col-form-label" for="campaign_name">Campaign Name <small>Example: Plumber Leads
-                    (Seattle)</small></label>
-                <div class="col-xl-12">
-                  <input formControlName="campaign_name" id="campaign_name" type="text" class="form-control"
-                    placeholder="Enter Campaign Name" autocomplete="off" required="">
-                  <div class="text-danger"
-                    *ngIf="campaignForm.controls['campaign_name'].hasError('required') && (campaignForm.controls['campaign_name'].dirty || campaignForm.controls['campaign_name'].touched)">
-                    This field is required</div>
-                </div>
-                <div class="col-xl-12 no-padding">
-                  <label class="col-xl-6 col-form-label" for="country_id">Select Country</label>
-                  <div class="col-xl-12">
-                    <select formControlName="country_id" id="country_id" class="form-control" required="">
-                        <option value="">--Select Country--</option>
-                        <option *ngFor="let country of countries$ | async" [value]="country.id">{{country.country_name}}</option>
-                    </select>
-                    <div class="text-danger" *ngIf="campaignForm.controls['country_id'].hasError('required') && (campaignForm.controls['country_id'].dirty || campaignForm.controls['country_id'].touched)">This field is required</div>
-                </div>
-                  <label class="col-xl-6 col-form-label" for="country_id">Campaign Phone Number</label>
-                  <div class="col-xl-6">
-                    <select formControlName="country_id" id="country_id" class="form-control" required="">
-                      <option value="">--Select Country--</option>
-                      <option *ngFor="let country of countries$ | async" [value]="country.id">{{country.country_name}}
-                        ({{country.country_code}})</option>
+              <div class="col-sm-12">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label class="col-form-label" for="company_id">Select Company</label>
+                    <select formControlName="company_id" id="company_id" class="form-control" required="">
+                      <option value="">--Select Company--</option>
+                      <option *ngFor="let company of companies$ | async" [value]="company.id">{{company.company_name}}
+                      </option>
                     </select>
                     <div class="text-danger"
-                      *ngIf="campaignForm.controls['country_id'].hasError('required') && (campaignForm.controls['country_id'].dirty || campaignForm.controls['country_id'].touched)">
+                      *ngIf="campaignForm.controls['company_id'].hasError('required') && (campaignForm.controls['company_id'].dirty || campaignForm.controls['company_id'].touched)">
+                      This field is required
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="col-form-label mt-33">&nbsp;</label>
+                    <button type="button" class="btn btn-primary" [routerLink]="['/company/add-company']"><em
+                        class="fa fa-plus"></em> Add Company</button>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label class="col-form-label" for="campaign_name">Campaign Name <small>Example: Plumber Leads
+                        (Seattle)</small></label>
+                    <input formControlName="campaign_name" id="campaign_name" type="text" class="form-control"
+                      placeholder="Enter Campaign Name" autocomplete="off" required="">
+                    <div class="text-danger"
+                      *ngIf="campaignForm.controls['campaign_name'].hasError('required') && (campaignForm.controls['campaign_name'].dirty || campaignForm.controls['campaign_name'].touched)">
                       This field is required</div>
                   </div>
-                  <div class="col-xl-6">
-                    <input formControlName="phone_number" id="phone_number" type="text" class="form-control"
-                      placeholder="Enter Phone Number without Country Code" [imask]="{mask: mask}" autocomplete="off"
-                      required="">
+                  <!-- <app-phone-number class="form-group col-md-6" formControlName="phone"></app-phone-number> -->
+                  <app-phone-number class="form-group col-md-6"></app-phone-number>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label class="col-form-label" for="timezone_id">TimeZone</label>
+                    <select formControlName="timezone_id" id="timezone_id" class="form-control" required="">
+                      <option value="">--Select Timezone--</option>
+                      <option *ngFor="let timezone of timezones$ | async" [value]="timezone.id">{{timezone.name}}
+                      </option>
+                    </select>
                     <div class="text-danger"
-                      *ngIf="campaignForm.controls['phone_number'].hasError('required') && (campaignForm.controls['phone_number'].dirty || campaignForm.controls['phone_number'].touched)">
+                      *ngIf="campaignForm.controls['timezone_id'].hasError('required') && (campaignForm.controls['timezone_id'].dirty || campaignForm.controls['timezone_id'].touched)">
                       This field is required</div>
                   </div>
                 </div>
-                <label class="col-xl-12 col-form-label" for="notes">Campaign Notes</label>
-                <div class="col-xl-12">
-                  <textarea formControlName="notes" id="notes" type="text" class="form-control"></textarea>
-                  <div class="text-danger"
-                    *ngIf="campaignForm.controls['notes'].hasError('required') && (campaignForm.controls['notes'].dirty || campaignForm.controls['notes'].touched)">
-                    This field is required</div>
-                </div>
-                <label class="col-xl-12 col-form-label" for="timezone_id">TimeZone</label>
-                <div class="col-xl-12">
-                  <select formControlName="timezone_id" id="timezone_id" class="form-control" required="">
-                    <option value="">--Select Timezone--</option>
-                    <option *ngFor="let timezone of timezones$ | async" [value]="timezone.id">{{timezone.name}}</option>
-                  </select>
-                  <div class="text-danger"
-                    *ngIf="campaignForm.controls['timezone_id'].hasError('required') && (campaignForm.controls['timezone_id'].dirty || campaignForm.controls['timezone_id'].touched)">
-                    This field is required</div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label class="col-form-label" for="notes">Campaign Notes</label>
+                    <textarea formControlName="notes" id="notes" type="text" class="form-control"></textarea>
+                    <div class="text-danger"
+                      *ngIf="campaignForm.controls['notes'].hasError('required') && (campaignForm.controls['notes'].dirty || campaignForm.controls['notes'].touched)">
+                      This field is required</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -104,10 +88,12 @@
                   <div *ngFor="let item of daySchedule.controls;let i=index;" class="row " [formGroupName]="i">
                     <ng-container>
                       <label class="col-sm-2 col-form-label">{{item.value.day}}:</label>
-                      <select class="form-control col-sm-3 mr-1" formControlName="openTime" [attr.disabled]="item.value.isClosed ? '' : null">
+                      <select class="form-control col-sm-3 mr-1" formControlName="openTime"
+                        [attr.disabled]="item.value.isClosed ? '' : null">
                         <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
                       </select>
-                      <select class="form-control col-sm-3" formControlName="closeTime" [attr.disabled]="item.value.isClosed ? '' : null">
+                      <select class="form-control col-sm-3" formControlName="closeTime"
+                        [attr.disabled]="item.value.isClosed ? '' : null">
                         <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
                       </select>
                       <div class="checkbox c-checkbox col-sm-3 mt-2">
@@ -124,12 +110,13 @@
         </accordion>
         <div class="form-group row">
           <div class="col-sm-12">
-              <div class="col-sm-6">
-                  <button class="btn btn-sm btn-primary mr-1" type="submit">Submit</button>
-                  <button class="btn btn-sm btn-danger" type="button" [routerLink]="['/company/campaign-list']"> Cancel</button>
-              </div>
+            <div class="col-sm-6">
+              <button class="btn btn-sm btn-primary mr-1" type="submit">Submit</button>
+              <button class="btn btn-sm btn-danger" type="button" [routerLink]="['/company/campaign-list']">
+                Cancel</button>
+            </div>
           </div>
-      </div>
+        </div>
       </form>
     </div>
   </div>
