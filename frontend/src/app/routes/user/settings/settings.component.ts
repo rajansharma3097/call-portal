@@ -18,7 +18,7 @@ export class SettingsComponent implements OnInit {
     twilioAuthToken: new FormControl(null, [Validators.required]),
   });
 
-  constructor(public UserService:UserService, private toastr: ToastrService) {}
+  constructor(public userService:UserService, private toastr: ToastrService) {}
 
   ngOnInit(): void {}
 
@@ -31,7 +31,7 @@ export class SettingsComponent implements OnInit {
     }
    // console.log(this.twilioForm.controls);
     if (this.twilioForm.valid) {
-      this.UserService.addTwilioCredentials(value).subscribe((res) => {
+      this.userService.addTwilioCredentials(value).subscribe((res) => {
         if (res.code == 1) {
           this.toastr.success(res.message, "Success");
         } else {
@@ -63,11 +63,10 @@ export class SettingsComponent implements OnInit {
   }).then((data) => {
     if(data) {
       this.loading = true;
-      this.UserService.removeOptionCredentials(value)
+      this.userService.removeOptionCredentials(value)
           .subscribe(res => {
             if(res.code == 1) {
               this.toastr.success(res.message, "Success");
-          
             } else {
               this.toastr.error(res.message, "Error");
             }

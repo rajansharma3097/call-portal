@@ -17,6 +17,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
         $validateData['password'] = Hash::make($validateData['password']);
+        $validateData['role_id']  =  3;
         $user        = User::create($validateData);
         $accessToken = $user->createToken('authToken')->accessToken;
         return response(['user' => $user, 'access_token' => $accessToken]);
