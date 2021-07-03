@@ -1,1 +1,125 @@
-<p>account works!</p>
+<div class="content-heading">
+  <div>Account </div>
+</div>
+<div class="col-md-12">
+  <!-- START card-->
+  <div class="card card-default">
+
+    <div class="card-body">
+
+      <div class="row">
+
+        <div class="col-sm-8">
+
+          <fieldset class="border p-2">
+            <legend class="w-auto">User information</legend>
+
+            <form novalidate [formGroup]="userInfoForm" (submit)="submitUserInfo($event, userInfoForm.value)">
+
+              <div class="row">
+
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input formControlName="firstName" type="text" name="firstName" class="form-control" id="firstName" required
+                  
+                 [ngClass]="{'is-invalid': (userInfoForm.get('firstName').touched ||
+                  userInfoForm.get('firstName').dirty) &&
+                !userInfoForm.get('firstName').valid }"
+
+                  >
+                  <div class="text-danger" *ngIf="userInfoForm.controls['firstName'].hasError('required') && (userInfoForm.controls['firstName'].dirty || userInfoForm.controls['firstName'].touched)">This field is required</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="lastName" class="form-label">Last name</label>
+                  <input formControlName="lastName" type="text" name="lastName" class="form-control" id="lastName" required   [ngClass]="{'is-invalid': (userInfoForm.get('lastName').touched ||
+                  userInfoForm.get('lastName').dirty) &&
+                !userInfoForm.get('lastName').valid }">
+                  <div class="text-danger" *ngIf="userInfoForm.controls['lastName'].hasError('required') && (userInfoForm.controls['lastName'].dirty || userInfoForm.controls['lastName'].touched)">This field is required</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Email</label>
+                  <input formControlName="email" type="email" name="email" class="form-control" id="email" required  [ngClass]="{'is-invalid': (userInfoForm.get('email').touched ||
+                  userInfoForm.get('email').dirty) &&
+                !userInfoForm.get('email').valid }">
+
+                  <div class="text-danger" *ngIf="userInfoForm.controls['email'].hasError('required') && (userInfoForm.controls['email'].dirty || userInfoForm.controls['email'].touched)">This field is required</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input formControlName="phone" type="text" name="phone" class="form-control" id="phone">
+                </div>
+
+                <div class="col-md-6" style="margin-top:10px">
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+
+              </div>
+            </form>
+
+
+          </fieldset>
+
+
+          <fieldset class="border p-2">
+
+            <legend class="w-auto">Address Detail</legend>
+
+            <form novalidate [formGroup]="userAddress" (submit)="submitUserAddress($event, userAddress.value)">
+              <div class="row">
+
+                <div class="col-md-12">
+                  <label for="address" class="form-label">Address</label>
+                  <input formControlName="address" type="text" class="form-control" id="address" name="address">
+                </div>
+                <div class="col-md-6">
+                  <label for="city" class="form-label">City</label>
+                  <input formControlName="city" type="text" class="form-control" id="city" name="city">
+                </div>
+
+                <div class="col-md-6">
+                  <label for="state" class="form-label">State</label>
+                  <input formControlName="state" type="text" class="form-control" id="state" name="state">
+                </div>
+
+                <div class="col-md-6">
+                  <label for="zip" class="form-label">Zip</label>
+                  <input formControlName="zip" type="text" class="form-control" id="zip" name="zip">
+                </div>
+
+                <div class="col-md-6">
+                  <label for="country" class="form-label">Country</label>
+                  <select formControlName="country_id" class="form-control" name="country_id" id="country_id">
+                    <option value="0">Select Country</option>
+                    <option *ngFor="let country of countryList" value={{country.id}}>
+                      {{country.country_name}}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="timezone" class="form-label">Timezone</label>
+                  <select formControlName="timezone_id" class="form-control" name="timezone" id="timezone_id">
+                    <option value="0">Select Timezone</option>
+                    <option *ngFor="let timezone of timezoneList" value={{timezone.id}}>
+                      {{timezone.name}}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-6" style="margin-top:10px">
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+              </div>
+            </form>
+
+          </fieldset>
+        </div>
+        <div class="col-sm-4">
+          Help
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

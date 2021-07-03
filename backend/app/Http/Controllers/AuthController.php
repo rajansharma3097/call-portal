@@ -5,8 +5,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
-use Illuminate\Support\Facades\Hash;
-
 class AuthController extends Controller
 {
     function signup(Request $request)
@@ -18,6 +16,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
         $validateData['password'] = Hash::make($validateData['password']);
+        $validateData['role_id']  =  3;
         $user        = User::create($validateData);
         $accessToken = $user->createToken('authToken')->accessToken;
         return response(['user' => $user, 'access_token' => $accessToken]);

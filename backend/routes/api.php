@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -91,7 +92,7 @@ Route::group(['prefix' => 'user',  'middleware' => ['auth:api']], function () {
 
     Route::post('save-twilio-settings',    'UsersSettingsController@saveTwilioCredentials');
     Route::get('fetch-twilio-credentials', 'UsersSettingsController@fetchTwilioCredentials');
-    Route::delete('remove-credentials/{meta_key}','UsersSettingsController@removeCredentials');
+    Route::delete('remove-credentials/{meta_key}', 'UsersSettingsController@removeCredentials');
 });
 
 /*
@@ -101,6 +102,10 @@ Route::group(['prefix' => 'user',  'middleware' => ['auth:api']], function () {
 
     Route::post('change-password',    'UsersController@updatePassword');
     Route::get('account-details',     'UsersController@getUserDetail');
-    Route::post('update-account',     'UsersSettingsController@updateAccountDetails');
+    Route::post('update-account',     'UsersController@updateUser');
+    Route::get('getuser',             'UsersController@getUser');
 });
+
+Route::get('country',     'UsersController@getCountryList');
+Route::get('timezone',    'UsersController@getTimezoneList');
 

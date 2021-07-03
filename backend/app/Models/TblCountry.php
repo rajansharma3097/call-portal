@@ -25,4 +25,14 @@ class TblCountry extends Model
     {
         return $this->all()->toArray();
     }
+
+    /**
+     * Get Country Listing for User
+     */
+    public static function getCountryList2()
+    {
+        return TblCountry::where([
+            ['status', 1]
+            ])->get()->toArray();
+    }
 }

@@ -36,7 +36,7 @@ export class AuthService {
     return this.http.post(this.authUrl, {
       grant_type: 'password',
       client_id: '2',
-      client_secret: 'S4qzTjSihM5GdUucoSl8nVckFdBxHz7k2KMXx8V3',
+      client_secret: 'pejolrcGErv6bQdJsqE6TJvFlopsFVI54LY85qdW',
       username: email,
       password: password,
       // scope: ''
@@ -55,7 +55,7 @@ export class AuthService {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       })
     };
-    // console.log(this.options);
+   // console.log(this.options);
     return this.http.get(this.apiUrl + '/token/revoke', this.options);
   }
 

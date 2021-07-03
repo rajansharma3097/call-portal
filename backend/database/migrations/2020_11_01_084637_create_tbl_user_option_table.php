@@ -15,10 +15,11 @@ class CreateTblUserOptionTable extends Migration
     {
         Schema::create('tbl_user_option', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('meta_key', 100);
-            $table->string('meta_value',250);
-            $table->tinyInteger('status')->comment('1 => means for active, 0=>delete');
+            $table->longText('meta_value');
+            $table->unsignedTinyInteger('status')->comment('1 => means for active, 0=>delete');
             $table->timestamps();
         });
     }
