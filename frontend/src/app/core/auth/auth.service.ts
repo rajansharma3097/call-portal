@@ -36,7 +36,7 @@ export class AuthService {
     return this.http.post(this.authUrl, {
       grant_type: 'password',
       client_id: '2',
-      client_secret: 'pejolrcGErv6bQdJsqE6TJvFlopsFVI54LY85qdW',
+      client_secret: 'H8p1Y6fMmYZyaOX7V5VE8B78GVQ8Q2uvHl0bqrGB',
       username: email,
       password: password,
       // scope: ''

@@ -38,10 +38,10 @@ class TblUserAccount extends Model
                 $data['state']       = $request->state;
                 $data['address']     = $request->address;
                 $data['zip']         = $request->zip;
-                $data['created']     = date('Y-m-d H:i:s');
+                $data['created_at']     = date('Y-m-d H:i:s');
             } else {
                 $data['phone']     = $request->phone;
-                $data['created']     = date('Y-m-d H:i:s');
+                $data['created_at']     = date('Y-m-d H:i:s');
             }
             return TblUserAccount::insertGetId($data);
         }

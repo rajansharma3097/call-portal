@@ -31,10 +31,11 @@ class TblTimezone extends Model
 
     /*
      * Get Timezone Listing for User
-    public static function getTimezoneList()
+     */
+    public static function getTimezoneList2()
     {
         return TblTimeZone::where([
             ['status', 1]
             ])->get()->toArray();
-    } */
+    } 
 }

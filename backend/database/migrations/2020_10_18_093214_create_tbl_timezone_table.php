@@ -19,6 +19,7 @@ class CreateTblTimezoneTable extends Migration
             $table->string('name', 255);
             $table->string('timezone_gmt_symbol', 10);
             $table->string('timezone_name', 255);
+            $table->tinyInteger('status')->default(1);
         });
     }
 

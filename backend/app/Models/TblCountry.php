@@ -27,7 +27,7 @@ class TblCountry extends Model
     }
 
     /**
-     * Get Country Listing for User
+     * Get Country Listing
      */
     public static function getCountryList2()
     {

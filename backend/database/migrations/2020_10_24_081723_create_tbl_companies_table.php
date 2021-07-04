@@ -18,7 +18,7 @@ class CreateTblCompaniesTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('company_name', 255);
             $table->string('company_email', 100);
-            $table->foreignId('country_id')->constrained('tbl_country');
+            $table->foreignId('country_id')->unsigned()->constrained('tbl_country');
             $table->string('phone_number', 50);
             $table->string('first_name', 100);
             $table->string('last_name', 100);

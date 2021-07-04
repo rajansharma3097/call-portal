@@ -92,7 +92,7 @@ class UsersController extends Controller
     {
 
         try {
-            return response()->json(['code' => 1, 'message' => 'success', 'data' => TblCountry::getCountryList()]);
+            return response()->json(['code' => 1, 'message' => 'success', 'data' => TblCountry::getCountryList2()]);
         } catch (Exception $e) {
             return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
         }
@@ -102,7 +102,7 @@ class UsersController extends Controller
     {
 
         try {
-            return response()->json(['code' => 1, 'message' => 'success', 'data' => TblTimezone::getTimezoneList()]);
+            return response()->json(['code' => 1, 'message' => 'success', 'data' => TblTimezone::getTimezoneList2()]);
         } catch (Exception $e) {
             return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
         }
