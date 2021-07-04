@@ -24,8 +24,8 @@ export class AccountComponent implements OnInit {
     address: new FormControl(null),
     city: new FormControl(null),
     state: new FormControl(null),
-    country_id: new FormControl(0),
-    timezone_id: new FormControl(0),
+    country_id: new FormControl("0"),
+    timezone_id: new FormControl("0"),
     zip: new FormControl(null)
   });
 
