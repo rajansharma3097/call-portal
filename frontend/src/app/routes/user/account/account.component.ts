@@ -77,8 +77,8 @@ export class AccountComponent implements OnInit {
           address: this.userData.address ?? null,
           city: this.userData.city ?? null,
           state: this.userData.state ?? null,
-          country_id: this.userData.country_id ?? null,
-          timezone_id: this.userData.timezone_id ?? null,
+          country_id: this.userData.timezone_id ??  "0",
+          timezone_id: this.userData.timezone_id ?? "0",
           zip:this.userData.zip ?? null
         });
       } else {
