@@ -48,11 +48,23 @@ export class AuthService {
    */
   logout() {
     // this.options.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
+
+    let token:string;
+
+    if(localStorage.getItem('adminToken')){
+      token =localStorage.getItem('adminToken');
+      console.log("sending admin token");
+    }else{
+      token =localStorage.getItem('token');   
+    }
+
+   
+    //return false;
     this.options = {
       headers: new HttpHeaders({
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
+        'Authorization': 'Bearer ' + token
       })
     };
    // console.log(this.options);

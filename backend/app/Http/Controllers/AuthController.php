@@ -22,13 +22,28 @@ class AuthController extends Controller
             $validateData['password'] = Hash::make($validateData['password']);
             $validateData['role_id']  =  3;
             $user        = User::create($validateData);
-            if($user){
+            if ($user) {
                 $accessToken = $user->createToken('authToken')->accessToken;
-                return response(['user' => $user, 'access_token' => $accessToken]);
-            }else{
-                return response()->json(['code' => 2, 'message' => "Somthing went wrong, Please try after sometime." . PHP_EOL]);  
+                return response(['user' => $user, 'access_token' => $accessToken, 'code' => 1]);
+            } else {
+                return response()->json(['code' => 2, 'message' => "Somthing went wrong, Please try after sometime." . PHP_EOL]);
             }
-            
+        } catch (Exception $e) {
+            return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
+        }
+    }
+
+    public function switchAccount(Request $request, $userId)
+    {
+
+        try {
+            $user       = User::find($userId);
+            if ($user) {
+                $accessToken  = $user->createToken('authToken')->accessToken;
+                return response(['user' => $user, 'access_token' => $accessToken,  'code' => 1]);
+            } else {
+                return response()->json(['code' => 2, 'message' => "User detail not found." . PHP_EOL]);
+            }
         } catch (Exception $e) {
             return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
         }

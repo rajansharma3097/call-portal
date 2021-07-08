@@ -11,6 +11,7 @@ import { AddSourceComponent } from './add-source/add-source.component';
 import { SourceListComponent } from './source-list/source-list.component';
 import { PlanListComponent } from './plan-list/plan-list.component';
 import { AddPlanComponent } from './add-plan/add-plan.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'admin' },
@@ -24,10 +25,11 @@ const routes: Routes = [
   { path: 'plan-list', component: PlanListComponent },
   { path: 'add-plan', component: AddPlanComponent },
   { path: 'edit-plan/:id', component: AddPlanComponent },
+  { path: 'user-list', component: UserListComponent }
 ];
 
 @NgModule({
-  declarations: [UploadAudioComponent, AudioListComponent, AddSourceComponent, SourceListComponent,EmailTemplateListComponent,EditEmailTemplateComponent, PlanListComponent, AddPlanComponent],
+  declarations: [UploadAudioComponent, AudioListComponent, AddSourceComponent, SourceListComponent,EmailTemplateListComponent,EditEmailTemplateComponent, PlanListComponent, AddPlanComponent, UserListComponent],
   imports: [
     SharedModule,
     EditorModule,

@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\TblAudio;
 use App\Models\TblSource;
+use App\User;
 use Carbon\Carbon;
+use Exception;
 
 class AdminController extends Controller
 {
@@ -160,6 +162,26 @@ class AdminController extends Controller
             return response()->json(['code' => 1, 'sourceDetail' => $sourceData]);
         } else {
             return response()->json(['code' => 2, 'message' => "Source Detail Not Found"]);
+        }
+    }
+
+
+    public function getUserList(Request $request)
+    {
+        try {
+            
+            if($request->user()->role_id == 1){
+               
+                $obj = new User();
+                $search = $request->query('search');
+                return response()->json(['code' => 1, 'data' => $obj->getUserList( $search )]);
+
+            }else{
+                return response()->json(['code' => 2, 'message'=>"UnAuthorized Access!"]); 
+            }
+           
+        } catch (Exception $ex) {
+            return response()->json(['code' => 2, 'message' => $ex->getMessage() . " Line No " . $ex->getLine()]);
         }
     }
 

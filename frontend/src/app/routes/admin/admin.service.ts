@@ -9,13 +9,12 @@ import { Page } from '../../shared/page';
 import { PagedData } from '../../shared/paged-data';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AdminService {
-
   private baseUrl = environment.apiUrl;
   private tinyApiKey = environment.tinyApiKey;
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
   uploadAudio(formData: FormData): Observable<any> {
     return this.http.post(`${this.baseUrl}/admin/upload-audio`, formData);
@@ -35,11 +34,12 @@ export class AdminService {
    * @returns {any} An observable containing the audio data
    */
   getAudioListing(page: Page): Observable<any> {
-    return this.http.get(`${this.baseUrl}/admin/audio-list?page=${page.pageNumber}`)
+    return this.http
+      .get(`${this.baseUrl}/admin/audio-list?page=${page.pageNumber}`)
       .pipe(
         map((data: any) => {
           if (data.code == 1) {
-            return this.getPagedData(page, data)
+            return this.getPagedData(page, data);
           } else {
             return data;
           }
@@ -53,11 +53,12 @@ export class AdminService {
    * @returns {any} An observable containing the audio data
    */
   getSourceListing(page: Page): Observable<any> {
-    return this.http.get(`${this.baseUrl}/admin/source-list?page=${page.pageNumber}`)
+    return this.http
+      .get(`${this.baseUrl}/admin/source-list?page=${page.pageNumber}`)
       .pipe(
         map((data: any) => {
           if (data.code == 1) {
-            return this.getPagedData(page, data)
+            return this.getPagedData(page, data);
           } else {
             return data;
           }
@@ -87,11 +88,12 @@ export class AdminService {
    * @returns {any} An observable containing the audio data
    */
   getEmailListing(page: Page): Observable<any> {
-    return this.http.get(`${this.baseUrl}/admin/email-template-list?page=${page.pageNumber}`)
+    return this.http
+      .get(`${this.baseUrl}/admin/email-template-list?page=${page.pageNumber}`)
       .pipe(
         map((data: any) => {
           if (data.code == 1) {
-            return this.getPagedData(page, data)
+            return this.getPagedData(page, data);
           } else {
             return data;
           }
@@ -100,12 +102,13 @@ export class AdminService {
   }
 
   /**
-  * A method that fetch emaildata from server
-  * @param page The selected page
-  * @returns {any} An observable containing the emailtemplate data
-  */
+   * A method that fetch emaildata from server
+   * @param page The selected page
+   * @returns {any} An observable containing the emailtemplate data
+   */
   getEmailtemplate(emailID: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/admin/edit-email-template/${emailID}`)
+    return this.http
+      .get(`${this.baseUrl}/admin/edit-email-template/${emailID}`)
       .pipe(
         map((data: any) => {
           if (data.code == 1) {
@@ -118,12 +121,15 @@ export class AdminService {
   }
 
   /**
-  * A method that update email data to server
-  * @param formData The form data
-  * @returns {any} An observable containing the emailtemplate data
-  */
+   * A method that update email data to server
+   * @param formData The form data
+   * @returns {any} An observable containing the emailtemplate data
+   */
   updateEmailTemplate(formData: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/admin/update-email-template`, formData);
+    return this.http.post(
+      `${this.baseUrl}/admin/update-email-template`,
+      formData
+    );
   }
 
   /**
@@ -131,27 +137,26 @@ export class AdminService {
    */
   getTinyApiKey() {
     return this.tinyApiKey;
-
   }
   /*A method to delete source
-  * @param sourceId Source that need to delete
-  */
+   * @param sourceId Source that need to delete
+   */
   deleteSource(sourceId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/admin/delete-source/${sourceId}`);
   }
 
-
   /**
-  * A method that fetch plan from server
-  * @param page The selected page
-  * @returns {any} An observable containing the audio data
-  */
+   * A method that fetch plan from server
+   * @param page The selected page
+   * @returns {any} An observable containing the audio data
+   */
   getPlanListing(page: Page): Observable<any> {
-    return this.http.get(`${this.baseUrl}/admin/plan-list?page=${page.pageNumber}`)
+    return this.http
+      .get(`${this.baseUrl}/admin/plan-list?page=${page.pageNumber}`)
       .pipe(
         map((data: any) => {
           if (data.code == 1) {
-            return this.getPagedData(page, data)
+            return this.getPagedData(page, data);
           } else {
             return data;
           }
@@ -160,27 +165,50 @@ export class AdminService {
   }
 
   /**
- * A method that update and add data to server
- * @param formData The form data
- * @returns {any} An observable containing the addPlan data
- */
+   * A method that update and add data to server
+   * @param formData The form data
+   * @returns {any} An observable containing the addPlan data
+   */
   addPlan(formData: FormData): Observable<any> {
     return this.http.post(`${this.baseUrl}/admin/add-plan`, formData);
   }
 
+  /**
+   * A method that fetch planData from server
+   * @param page The selected page
+   * @returns {any} An observable containing the planEdit data
+   */
+  getPlan(planID: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/admin/edit-plan/${planID}`).pipe(
+      map((data: any) => {
+        if (data.code == 1) {
+          return data;
+        } else {
+          return data;
+        }
+      })
+    );
+  }
+
+  /* A method to delete Plan
+   * @param planId Plan that need to delete
+   */
+  deletePlan(planId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/admin/delete-plan/${planId}`);
+  }
 
   /**
-    * A method that fetch planData from server
-    * @param page The selected page
-    * @returns {any} An observable containing the planEdit data
-    */
-  getPlan(planID: number): Observable<any> {
-    
-    return this.http.get(`${this.baseUrl}/admin/edit-plan/${planID}`)
+   * A method that fetch user from server
+   * @param page The selected page
+   * @returns {any} An observable containing the audio data
+   */
+  getUserListing(page: Page,search?:any): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/admin/user-listing?page=${page.pageNumber}&search=${search}`)
       .pipe(
         map((data: any) => {
           if (data.code == 1) {
-            return data;
+            return this.getPagedData(page, data);
           } else {
             return data;
           }
@@ -188,13 +216,13 @@ export class AdminService {
       );
   }
 
-   /* A method to delete Plan
-    * @param planId Plan that need to delete
-    */
-  deletePlan(planId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/admin/delete-plan/${planId}`);
+  /**
+   * Switch into user Account
+   * @param userId
+   */
+  switchUserAccount(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/admin/switch-account/${userId}`);
   }
-
 
   /**
    * Package companyData into a PagedData object based on the selected Page
@@ -210,5 +238,4 @@ export class AdminService {
     pagedData.code = data.code;
     return pagedData;
   }
-
 }

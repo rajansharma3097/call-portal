@@ -92,7 +92,7 @@
                   <label for="country" class="form-label">Country</label>
                   <select formControlName="country_id" class="form-control" name="country_id" id="country_id">
                     <option value="0">Select Country</option>
-                    <option *ngFor="let country of countryList" value={{country.id}}>
+                    <option *ngFor="let country of countries$ | async" [value]="country.id">
                       {{country.country_name}}
                     </option>
                   </select>
@@ -102,7 +102,7 @@
                   <label for="timezone" class="form-label">Timezone</label>
                   <select formControlName="timezone_id" class="form-control" name="timezone" id="timezone_id">
                     <option value="0">Select Timezone</option>
-                    <option *ngFor="let timezone of timezoneList" value={{timezone.id}}>
+                    <option *ngFor="let timezone of timezone$ | async" [value]="timezone.id">
                       {{timezone.name}}
                     </option>
                   </select>

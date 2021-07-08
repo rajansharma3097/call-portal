@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { UserService } from "./../user.service";
+import { CommonService } from '../../../shared/services/common.service';
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-account",
@@ -9,8 +11,9 @@ import { UserService } from "./../user.service";
   styleUrls: ["./account.component.scss"],
 })
 export class AccountComponent implements OnInit {
-  public countryList: any[];
-  public timezoneList: any[];
+
+  countries$: Observable<Array<any>>;
+  timezone$:  Observable<Array<any>>;
   public userData: any;
 
   userInfoForm = new FormGroup({
@@ -26,28 +29,32 @@ export class AccountComponent implements OnInit {
     state: new FormControl(null),
     country_id: new FormControl("0"),
     timezone_id: new FormControl("0"),
-    zip: new FormControl(null)
+    zip: new FormControl(null),
   });
 
-  constructor(public userService: UserService, private toastr: ToastrService) {}
+  constructor(
+    private userService: UserService,
+    private toastr: ToastrService,
+    private commonService: CommonService
+  ) {}
 
   ngOnInit(): void {
-    this.getCountryList();
-    this.getTimezoneList();
+    this.countries$ = this.commonService.countries;
+    this.timezone$ = this.commonService.timezones;
     this.getUserData();
   }
 
-  getCountryList() {
-    this.userService.getCounty().subscribe((res) => {
-      if (res.code == 1) {
-        this.countryList = res.data ?? [];
-      } else {
-        this.toastr.error("Country listing not found.");
-      }
-    });
-  }
+  // getCountryList() {
+  //   this.userService.getCounty().subscribe((res) => {
+  //     if (res.code == 1) {
+  //       this.countryList = res.data ?? [];
+  //     } else {
+  //       this.toastr.error("Country listing not found.");
+  //     }
+  //   });
+  // }
 
-  getTimezoneList() {
+  /*getTimezoneList() {
     this.userService.getTimezone().subscribe((res) => {
       if (res.code == 1) {
         this.timezoneList = res.data ?? [];
@@ -55,7 +62,7 @@ export class AccountComponent implements OnInit {
         this.toastr.error("Timezone Listing not found.");
       }
     });
-  }
+  } */
 
   getUserData() {
     this.userService.getUser().subscribe((res) => {
@@ -77,9 +84,9 @@ export class AccountComponent implements OnInit {
           address: this.userData.address ?? null,
           city: this.userData.city ?? null,
           state: this.userData.state ?? null,
-          country_id: this.userData.timezone_id ??  "0",
+          country_id: this.userData.country_id ?? "0",
           timezone_id: this.userData.timezone_id ?? "0",
-          zip:this.userData.zip ?? null
+          zip: this.userData.zip ?? null,
         });
       } else {
         this.toastr.error("User Detail not found.");

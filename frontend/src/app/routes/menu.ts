@@ -50,6 +50,12 @@ const Admin = {
             icon: 'icon-settings'
         },
 
+        {
+            text: 'Manage User',
+            link: '/admin/user-list',
+            icon: 'icon-settings'
+        },
+
 
     ]
 

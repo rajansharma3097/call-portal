@@ -25,9 +25,10 @@ class AccessToken extends PassportAccessToken
             ->expiresAt($this->getExpiryDateTime()->getTimestamp())
             ->relatedTo($this->getUserIdentifier())
             ->withClaim('scopes', [])
-            ->withClaim('id', $user->id)
-            ->withClaim('name', $user->name)
-            ->withClaim('email', $user->email);
+            ->withClaim('id',      $user->id)
+            ->withClaim('name',    $user->name)
+            ->withClaim('email',   $user->email)
+            ->withClaim('role_id', $user->role_id);
         return $builder
             ->getToken(new Sha256(), new Key($privateKey->getKeyPath(), $privateKey->getPassPhrase()));
     }
