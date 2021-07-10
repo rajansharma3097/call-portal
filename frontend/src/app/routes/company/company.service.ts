@@ -85,6 +85,14 @@ export class CompanyService {
   }
 
   /**
+   * A method to delete campaign
+   * @param campaignId Campaign that need to delete
+   */
+   deleteCampaign(campaignId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete-campaign/${campaignId}`);
+  }
+
+  /**
    * Get Campaign By campaignId
    * @param campaignId
    */

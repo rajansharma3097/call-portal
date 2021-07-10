@@ -48,7 +48,7 @@ export class CampaignListComponent implements OnInit {
         });
   }
 
-  onCampaignDelete(companyId: number) {
+  onCampaignDelete(campaignId: number) {
 
     swal({
         title: 'Are you sure?',
@@ -67,7 +67,7 @@ export class CampaignListComponent implements OnInit {
     }).then((data) => {
       if(data) {
         this.loading = true;
-        this.companyService.deleteCompany(companyId)
+        this.companyService.deleteCampaign(campaignId)
             .subscribe(res => {
               if(res.code == 1) {
                 this.toastr.success(res.message, "Success");

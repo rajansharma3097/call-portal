@@ -18,7 +18,6 @@
         [footerHeight]="50"
         [headerHeight]="50"
         [rowHeight]="'auto'"
-        [reorderable]="reorderable"
         [scrollbarH]="true"
         [rows]='rows'
         [externalPaging]="true"
@@ -27,7 +26,7 @@
         [count]="page.totalElements"
         [offset]="page.pageNumber-1"
         [limit]="page.size"
-        (page)="getAudioList($event)"
+        (page)="getCompanyList($event)"
         (sort)="onSort($event)">
             <ngx-datatable-column name="Company Name" prop="company_name" [sortable]="true"></ngx-datatable-column>
             <ngx-datatable-column name="Action" prop="id" [sortable]="false">
@@ -39,4 +38,3 @@
         </ngx-datatable>
     </div>
   </div>
-  
