@@ -292,4 +292,25 @@ class CompanyController extends Controller
             return response()->json(['code' => 2, 'message' => print_r($e, true)]);
         }
     }
+
+    /**
+     * Delete Company
+     */
+    public function deleteCampaign(Request $request, $id)
+    {
+        try {
+            $campaignDelete = TblCampaigns::findOrFail($id);
+
+            if ($campaignDelete) {
+                $campaignDelete->status = 0;
+                $campaignDelete->updated_at = date('Y-m-d H:i:s');
+                $campaignDelete->save();
+                return response()->json(['code' => 1, 'message' => "Campaign Deleted Successfully."]);
+            } else {
+                return response()->json(['code' => 2, 'message' => "Campaign Detail Not Found"]);
+            }
+        } catch (Exception $e) {
+            return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
+        }
+    }
 }
