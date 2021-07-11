@@ -32,11 +32,12 @@
         [limit]="page.size" 
         (page)="getUserList($event)"
         (sort)="onSort($event)">
-        <ngx-datatable-column name="User Name" prop="name" [sortable]="true"></ngx-datatable-column>
+        <ngx-datatable-column name="User Name" prop="name" [sortable]="true" 
+        ></ngx-datatable-column>
         <ngx-datatable-column name="Email" prop="email" [sortable]="false"> </ngx-datatable-column>
         <ngx-datatable-column name="Action" prop="id" [sortable]="false">
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-            <a style="cursor: pointer;" title="Switch User Account" (click) ="switchUserAccount($ev,value)"> <i class="fa mr-2 fas fa-user"></i> </a>
+            <a style="cursor: pointer;" title="Switch User Account"> <i class="fa mr-2 fas fa-user" (click) ="switchUserAccount($ev,value)"></i> </a>
             <a style="cursor: pointer;"><i class="fa mr-2 fas fa-trash-alt"></i></a>
           </ng-template>
         </ngx-datatable-column>

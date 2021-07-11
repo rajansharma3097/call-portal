@@ -29,6 +29,15 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
         Passport::tokensExpireIn(now()->addDays(15));
         Passport::refreshTokensExpireIn(now()->addDays(30));
+        Passport::tokensCan([
+            'isAdmin' => 'isAdmin',
+            'isSuperAdmin' => 'isSuperAdmin',
+            'isUser' => 'isUser',
+            'isCompany' =>'isCompany'
+        ]);
+
+        // Auth Scopes ['isAdmin', 'isSuperAdmin', 'isUser', 'isCompany']
+
         // Route::group([ 'middleware' => 'cors'], function() {
         //     Passport::routes();
         // });

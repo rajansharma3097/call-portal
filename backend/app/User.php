@@ -6,8 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 use App\Models\TblUserAccount;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Boolean;
+use Ramsey\Uuid\Type\Integer;
 
 class User extends Authenticatable
 {
@@ -97,8 +100,53 @@ class User extends Authenticatable
     public function getUserList($search = "")
     {
         return $this->where([
+
+            ['email', 'like', '%' . $search . '%']
+
+        ])->role()->paginate(15)->toArray();
+
+        /*dd($this->where([
             ['role_id', 3],
             ['email', 'like', '%' . $search . '%']
-        ])->paginate(15)->toArray();
+        ])->toSql());*/
+    }
+
+    public function scopeRole($query)
+    {
+
+        return $query->where('role_id', 3);
+    }
+
+
+    /**
+     *  The method return token generator
+     *  @param   [Object]
+     *  @return  [string] 
+     *  @author  Birendra Kanwasi <bkanwasi21@gmail.com>
+     */
+    public static function generateToken(object $user, $isAdminSwitchAccount = 0): string
+    {
+        if ($isAdminSwitchAccount)
+            return $user->createToken('authToken', ['isAdmin', 'isSuperAdmin', 'isUser', 'isCompany'])->accessToken;
+
+
+        switch ($user->role_id) {
+
+            case 1:
+                $accessToken = $user->createToken('authToken', ['isAdmin', 'isSuperAdmin', 'isUser', 'isCompany'])->accessToken;
+                break;
+            case 2:
+                $accessToken = $user->createToken('authToken', ['isSuperAdmin'])->accessToken;
+            case 3:
+                $accessToken = $user->createToken('authToken', ['isUser'])->accessToken;
+                break;
+            case 4:
+                $accessToken = $user->createToken('authToken', ['isCompany'])->accessToken;
+            default:
+                $accessToken = "";
+                break;
+        }
+
+        return  $accessToken;
     }
 }

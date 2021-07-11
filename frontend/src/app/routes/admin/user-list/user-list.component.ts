@@ -44,6 +44,9 @@ export class UserListComponent implements OnInit {
     this.page.pageNumber = pageInfo.offset + 1;
     this.loading = true;
     this.adminService.getUserListing(this.page,this.search).subscribe((res) => {
+
+         console.log(res);
+
       if (res.code == 1) {
         this.rows = res.data ?? [];
       } else {
@@ -80,9 +83,6 @@ export class UserListComponent implements OnInit {
    */
    switchUserAccount($ev,userId: number) {
 
-    console.log($ev);
-    return false;
-    
     if (userId > 0) {
       this.loading = true;
       this.adminService.switchUserAccount(userId).subscribe((res) => {
@@ -94,7 +94,7 @@ export class UserListComponent implements OnInit {
           this.tokenService.handle(res.access_token);
           this.router.navigate(['/home']);
         } else {
-          this.toastr.error("Problem in getting response.", "Error");
+          this.toastr.error(res.message, "Error");
         }
       });
       this.loading = false;

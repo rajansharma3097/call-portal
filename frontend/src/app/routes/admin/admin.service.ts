@@ -24,7 +24,7 @@ export class AdminService {
    * Add Source
    * @param postData
    */
-  addSource(postData: any): Observable<any> {
+  addSource(postData: any): Observable<any> {  
     return this.http.post(`${this.baseUrl}/admin/add-source`, postData);
   }
 

@@ -41,19 +41,27 @@ export class LoginComponent implements OnInit {
             console.log(JSON.stringify(this.valForm.value));
             this.error = null;
             return this.authService.login(value.email, value.password).subscribe(
-              data => this.handleResponse(data),
-              err  => this.handleError(err)
+              data => this.handleResponse(data)
+             // err  => this.handleError(err)
             );
         }
     }
 
     handleResponse(data) {
-        this.tokenService.handle(data.access_token);
-        this.router.navigate(['/home']); 
+
+        //console.log(data);
+      //  return false;
+        if(data.code == 1){
+            this.tokenService.handle(data.access_token);
+            this.router.navigate(['/home']); 
+        }else{
+            this.error = data.message;  
+        }
+    
      }
 
     handleError(error) {
-      console.log(error.error.error);
+      //console.log(error.error.error);
       this.error = error.error.error;
     }
     ngOnInit() {

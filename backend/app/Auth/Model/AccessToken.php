@@ -18,13 +18,16 @@ class AccessToken extends PassportAccessToken
     {
         $builder = new Builder();
         $user = User::find($this->getUserIdentifier());
+        
+       // $scope = ($user->role_id == 1)?['is_Admin']:[];
+
         $builder->permittedFor($this->getClient()->getIdentifier())
             ->identifiedBy($this->getIdentifier(), true)
             ->issuedAt(time())
             ->canOnlyBeUsedAfter(time())
             ->expiresAt($this->getExpiryDateTime()->getTimestamp())
             ->relatedTo($this->getUserIdentifier())
-            ->withClaim('scopes', [])
+            ->withClaim('scopes',[] )
             ->withClaim('id',      $user->id)
             ->withClaim('name',    $user->name)
             ->withClaim('email',   $user->email)

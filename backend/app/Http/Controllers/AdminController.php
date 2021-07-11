@@ -170,15 +170,15 @@ class AdminController extends Controller
     {
         try {
             
-            if($request->user()->role_id == 1){
+           // if($request->user()->role_id == 1){
                
                 $obj = new User();
                 $search = $request->query('search');
                 return response()->json(['code' => 1, 'data' => $obj->getUserList( $search )]);
 
-            }else{
+          //  }else{
                 return response()->json(['code' => 2, 'message'=>"UnAuthorized Access!"]); 
-            }
+          //  }
            
         } catch (Exception $ex) {
             return response()->json(['code' => 2, 'message' => $ex->getMessage() . " Line No " . $ex->getLine()]);

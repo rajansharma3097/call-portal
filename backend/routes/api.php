@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
+ //['isAdmin', 'isSuperAdmin', 'isUser', 'isCompany'] Auth scops
+
 |
 */
 
@@ -27,6 +29,7 @@ Route::middleware(['auth:api'])->get('/token/revoke', function (Request $request
 });
 
 Route::post('/signup', 'AuthController@signup');
+Route::post('/login', 'AuthController@login');
 
 /** Route Prefix for Admin Routes */
 Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
@@ -113,12 +116,10 @@ Route::get('timezone',    'UsersController@getTimezoneList');
 /*
  *Admin Manage User Listing
 */
-Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
+Route::group(['prefix' => 'admin',  'middleware' => ['auth:api','scopes:isAdmin']], function () {
     
-   
         Route::get('user-listing',      'AdminController@getUserList');
     
-   
 });
 
 //Route::get('user-listing',      'AdminController@getUserList');
