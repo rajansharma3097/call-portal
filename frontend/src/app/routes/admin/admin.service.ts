@@ -24,7 +24,7 @@ export class AdminService {
    * Add Source
    * @param postData
    */
-  addSource(postData: any): Observable<any> {  
+  addSource(postData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/admin/add-source`, postData);
   }
 
@@ -202,9 +202,11 @@ export class AdminService {
    * @param page The selected page
    * @returns {any} An observable containing the audio data
    */
-  getUserListing(page: Page,search?:any): Observable<any> {
+  getUserListing(page: Page, search?: any): Observable<any> {
     return this.http
-      .get(`${this.baseUrl}/admin/user-listing?page=${page.pageNumber}&search=${search}`)
+      .get(
+        `${this.baseUrl}/admin/user-listing?page=${page.pageNumber}&search=${search}`
+      )
       .pipe(
         map((data: any) => {
           if (data.code == 1) {
@@ -222,6 +224,13 @@ export class AdminService {
    */
   switchUserAccount(userId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/admin/switch-account/${userId}`);
+  }
+
+  /*A method to delete Plan
+   * @param userId that needs to delete
+   */
+  deleteUser(userId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/admin/delete-user/${userId}`);
   }
 
   /**

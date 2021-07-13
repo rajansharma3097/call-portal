@@ -126,9 +126,40 @@ export class UserListComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  deleteAccount(value){
 
-    alert(value);
+  deleteAccount(user_id: number){
+
+    swal({
+      title: 'Are you sure?',
+      text: 'Your will not be able to recover this!',
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        confirm: {
+          text: 'Yes, delete it!',
+          value: true,
+          visible: true,
+          className: "bg-danger",
+          closeModal: true
+        }
+      }
+    }).then((data) => {
+      if (data) {
+        this.loading = true;
+        this.adminService.deleteUser(user_id)
+          .subscribe(res => {
+            if (res.code == 1) {
+              this.toastr.success(res.message, "Success");
+             // this.getPlanList({ offset: this.page.pageNumber - 1 });
+            } else {
+              this.toastr.error(res.message, "Error");
+            }
+            this.loading = false;
+          });
+      }
+    });
+
+  
 
   }
 

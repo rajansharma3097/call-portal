@@ -121,6 +121,7 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth:api','scopes:isAdmin'
     
         Route::get('user-listing',     'AdminController@getUserList');
         Route::get('switch-account/{userId}',  'AuthController@switchAccount'); 
+        Route::delete('delete-user/{userId}',  'AdminController@deleteUser');
 });
 
 //Route::get('user-listing',      'AdminController@getUserList');

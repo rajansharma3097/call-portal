@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->unsignedTinyInteger('status')->default(0)->comment("0=>Deleted,1=>Active,2=>Incomplete Registration");
+            $table->unsignedTinyInteger('status')->default(1)->comment("0=>Deleted,1=>Active,2=>Incomplete Registration");
             $table->timestamps();
         });
     }
