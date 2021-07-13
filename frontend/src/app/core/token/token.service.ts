@@ -24,6 +24,8 @@ export class TokenService {
 
   remove() {
     localStorage.removeItem("token");
+
+    if (this.getAdminToken()) localStorage.removeItem("adminToken");
   }
 
   isValid() {

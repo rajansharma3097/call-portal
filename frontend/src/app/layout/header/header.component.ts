@@ -1,3 +1,4 @@
+import { TokenService } from './../../core/token/token.service';
 import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 const screenfull = require('screenfull');
@@ -6,6 +7,7 @@ import { UserblockService } from '../sidebar/userblock/userblock.service';
 import { SettingsService } from '../../core/settings/settings.service';
 import { MenuService } from '../../core/menu/menu.service';
 import { AuthService } from 'src/app/core/auth/auth.service';
+
 
 @Component({
     selector: 'app-header',
@@ -26,7 +28,8 @@ export class HeaderComponent implements OnInit {
         public userblockService: UserblockService,
         public settings: SettingsService,
         private authService: AuthService,
-        public injector: Injector
+        public injector: Injector,
+        private tokenService: TokenService
     ) {
 
         // show only a few items on demo
@@ -103,7 +106,7 @@ export class HeaderComponent implements OnInit {
     logout(): void {
     this.authService.logout()
         .subscribe(() => {
-            localStorage.removeItem('token');
+            this.tokenService.remove();
             this.router.navigate(['/login']);
         });
     }
