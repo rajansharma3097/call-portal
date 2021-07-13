@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-
 import { UploadAudioComponent } from './upload-audio/upload-audio.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AudioListComponent } from './audio-list/audio-list.component';
@@ -12,7 +11,6 @@ import { SourceListComponent } from './source-list/source-list.component';
 import { PlanListComponent } from './plan-list/plan-list.component';
 import { AddPlanComponent } from './add-plan/add-plan.component';
 import { UserListComponent } from './user-list/user-list.component';
-
 const routes: Routes = [
   { path: '', redirectTo: 'admin' },
   { path: 'upload-audio', component: UploadAudioComponent },

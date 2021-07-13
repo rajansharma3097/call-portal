@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
             this.error = null;
             return this.authService.login(value.email, value.password).subscribe(
               data => this.handleResponse(data)
-             // err  => this.handleError(err)
+             // err  => this.handleError(err) // no more 
             );
         }
     }

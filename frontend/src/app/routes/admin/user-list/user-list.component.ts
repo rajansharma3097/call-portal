@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild,TemplateRef } from "@angular/core";
 import { Page } from "src/app/shared/page";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 import { environment } from "src/environments/environment";
@@ -6,6 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import { AdminService } from "./../admin.service";
 import { TokenService } from '../../../core/token/token.service';
 import { Router } from '@angular/router';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 const swal = require("sweetalert");
 
 @Component({
@@ -22,12 +23,15 @@ export class UserListComponent implements OnInit {
   page = new Page();
   search ="";
   loading = false;
+  modalRef: BsModalRef;
+  UserDetail;
 
   constructor(
     private adminService: AdminService,
     private toastr: ToastrService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private modalService: BsModalService
   ) {
     this.page.pageNumber = 1;
     this.page.size = 15;
@@ -81,7 +85,7 @@ export class UserListComponent implements OnInit {
    *A method switch to user account
    *@param UserId
    */
-   switchUserAccount($ev,userId: number) {
+   switchUserAccount(userId: number) {
 
     if (userId > 0) {
       this.loading = true;
@@ -101,6 +105,31 @@ export class UserListComponent implements OnInit {
     } else {
       this.toastr.error("Invalid User Id", "Error");
     }
+  }
+
+
+  public ngAfterViewInit() {
+    this.cellOverflowVisible();
+  }
+
+  private cellOverflowVisible() {
+    const cells = document.getElementsByClassName('datatable-body-cell overflow-visible');
+    for (let i = 0, len = cells.length; i < len; i++) {
+      cells[i].setAttribute('style', 'overflow: visible !important');
+    }
+  }
+
+  openModal(template: TemplateRef<any>,row,value) {
+
+    console.log(row,value);
+    this.UserDetail =row;
+    this.modalRef = this.modalService.show(template);
+  }
+
+  deleteAccount(value){
+
+    alert(value);
+
   }
 
 

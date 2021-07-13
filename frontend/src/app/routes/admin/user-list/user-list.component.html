@@ -15,6 +15,12 @@
            />
         </div>
       </div>
+<style>
+    
+
+.datatable-body-cell { overflow: visible !important; } .datatable-header-cell, .datatable-header { overflow:visible !important; }
+</style>
+
       <ngx-datatable #myTable 
         class='material no-detail-row' 
         [columnMode]="ColumnMode.force"
@@ -31,16 +37,49 @@
         [offset]="page.pageNumber-1" 
         [limit]="page.size" 
         (page)="getUserList($event)"
-        (sort)="onSort($event)">
+        (sort)="onSort($event)"
+        >
         <ngx-datatable-column name="User Name" prop="name" [sortable]="true" 
         ></ngx-datatable-column>
         <ngx-datatable-column name="Email" prop="email" [sortable]="false"> </ngx-datatable-column>
-        <ngx-datatable-column name="Action" prop="id" [sortable]="false">
-          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-            <a style="cursor: pointer;" title="Switch User Account"> <i class="fa mr-2 fas fa-user" (click) ="switchUserAccount($ev,value)"></i> </a>
-            <a style="cursor: pointer;"><i class="fa mr-2 fas fa-trash-alt"></i></a>
+        <ngx-datatable-column name="Action" prop="id">
+          
+          <ng-template let-value="value" let-expanded="expanded" let-row="row" ngx-datatable-cell-template>
+            <div class="btn-group" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                      aria-controls="dropdown-basic">
+               Action <span class="gear"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                  role="menu" aria-labelledby="button-basic">
+                <li role="menuitem"><a class="dropdown-item" href="#" (click)="switchUserAccount(value)">Login into User Account</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#" (click)="openModal(template,row,value)">Change Password</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#" (click)="deleteAccount(value)">Delete</a></li>
+                
+              </ul>
+            </div>
           </ng-template>
-        </ngx-datatable-column>
+          </ngx-datatable-column>
+
+
+  
+       
       </ngx-datatable>     
+
+     
+ 
+      <ng-template #template>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Change Password ({{UserDetail.email }})</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         
+          <input type="password" class="" />
+        </div>
+      </ng-template>
     </div>
   </div>
+  

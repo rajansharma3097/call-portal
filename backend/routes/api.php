@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
     Route::get('source-list', 'AdminController@sourceList');
     Route::get('get-source/{id}', 'AdminController@getSingleSource');
     Route::delete('delete-source/{id}', 'AdminController@deleteSource');
-    Route::get('switch-account/{userId}',    'AuthController@switchAccount');
+
 });
 
 /*
@@ -57,7 +57,7 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
 /*
 *Plan Routing
 */
-Route::group(['prefix' => 'admin',  'middleware' => ['auth:api']], function () {
+Route::group(['prefix' => 'admin',  'middleware' => ['auth:api','scopes:isAdmin']], function () {
 
     Route::get('plan-list',     'PlanController@list');
     Route::get('edit-plan/{id}', 'PlanController@get');
@@ -119,8 +119,8 @@ Route::get('timezone',    'UsersController@getTimezoneList');
 */
 Route::group(['prefix' => 'admin',  'middleware' => ['auth:api','scopes:isAdmin']], function () {
     
-        Route::get('user-listing',      'AdminController@getUserList');
-    
+        Route::get('user-listing',     'AdminController@getUserList');
+        Route::get('switch-account/{userId}',  'AuthController@switchAccount'); 
 });
 
 //Route::get('user-listing',      'AdminController@getUserList');
