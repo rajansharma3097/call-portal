@@ -1,3 +1,4 @@
+import { ActiveFilterPipe } from './../../shared/pipes/active-filter.pipe';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { UploadAudioComponent } from './upload-audio/upload-audio.component';
@@ -27,7 +28,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [UploadAudioComponent, AudioListComponent, AddSourceComponent, SourceListComponent,EmailTemplateListComponent,EditEmailTemplateComponent, PlanListComponent, AddPlanComponent, UserListComponent],
+  declarations: [UploadAudioComponent, AudioListComponent, AddSourceComponent, SourceListComponent,EmailTemplateListComponent,EditEmailTemplateComponent, PlanListComponent, AddPlanComponent, UserListComponent,ActiveFilterPipe],
   imports: [
     SharedModule,
     EditorModule,

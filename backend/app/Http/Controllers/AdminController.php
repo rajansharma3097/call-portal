@@ -170,8 +170,8 @@ class AdminController extends Controller
     {
         try {
             $obj = new User();
-            $search = $request->query('search');
-            return response()->json(['code' => 1, 'data' => $obj->getUserList($search)]);
+            //$search = $request->query('search');
+            return response()->json(['code' => 1, 'data' => $obj->getUserList()]);
         } catch (Exception $ex) {
             return response()->json(['code' => 2, 'message' => $ex->getMessage() . " Line No " . $ex->getLine()]);
         }
@@ -184,30 +184,21 @@ class AdminController extends Controller
 
             if (!$obj)
                 return response()->json(['code' => 2, 'message' => 'User detail not found']);
+            
+            if($obj->status){
+                $status = 0;
+                $message ="Deactivated";
+            }else{
+                $status = 1;
+                $message ="Activated" ;   
+            }
 
-            $obj->status = 0;
+            $obj->status = $status;
             $obj->save();
-            return response()->json(['code' => 1, 'message' => "User has been deleted successfully."]);
+            return response()->json(['code' => 1, 'message' => "User has been $message successfully.",'status'=>$status]);
         } catch (Exception $ex) {
             return response()->json(['code' => 2, 'message' => $ex->getMessage() . " Line No " . $ex->getLine()]);
         }
-    }
-
-    public function changePassword(Request $request, $userId){
-
-        try {
-            $obj      =  User::find($request->userId);
-            if (!$obj)
-                return response()->json(['code' => 2, 'message' => 'User detail not found']);
-
-            $obj->password = 0;
-            $obj->save();
-            return response()->json(['code' => 1, 'message' => "User has been deleted successfully."]);
-        } catch (Exception $ex) {
-            return response()->json(['code' => 2, 'message' => $ex->getMessage() . " Line No " . $ex->getLine()]);
-        }
-
-
     }
 
 }

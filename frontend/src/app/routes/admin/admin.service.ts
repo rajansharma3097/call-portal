@@ -202,10 +202,10 @@ export class AdminService {
    * @param page The selected page
    * @returns {any} An observable containing the audio data
    */
-  getUserListing(page: Page, search?: any): Observable<any> {
+  getUserListing(page: Page, search?: any, tab?:any): Observable<any> {
     return this.http
       .get(
-        `${this.baseUrl}/admin/user-listing?page=${page.pageNumber}&search=${search}`
+        `${this.baseUrl}/admin/user-listing?page=${page.pageNumber}&search=${search}&tab=${tab}`
       )
       .pipe(
         map((data: any) => {
@@ -231,6 +231,16 @@ export class AdminService {
    */
   deleteUser(userId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/admin/delete-user/${userId}`);
+  }
+
+
+  /**
+   * A method that update and add data to server
+   * @param formData The form data
+   * @returns {any} An observable containing the addPlan data
+   */
+   changeUserPassword(formData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/admin/change-user-password`, formData);
   }
 
   /**

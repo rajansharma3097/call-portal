@@ -96,4 +96,32 @@ class AuthController extends Controller
             return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
         }
     }
+    
+    /**
+     *For Change user Password
+     *@author  Birendra Kanwasi <bkanwasi21@gmail.com>
+     */
+    public function changeUserPassword(Request $request)
+    {
+
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'password' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['code' => 2, 'message' =>  $validator->messages()->first()]);
+            }
+
+            $obj      =  User::find($request->userId);
+            if (!$obj)
+                return response()->json(['code' => 2, 'message' => 'User detail not found']);
+
+            $obj->password = Hash::make($request->password);
+            $obj->save();
+            return response()->json(['code' => 1, 'message' => "User Password has been reset successfully."]);
+        } catch (Exception $ex) {
+            return response()->json(['code' => 2, 'message' => $ex->getMessage() . " Line No " . $ex->getLine()]);
+        }
+    }
 }

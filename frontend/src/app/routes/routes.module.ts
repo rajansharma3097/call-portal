@@ -9,13 +9,15 @@ import { menu } from './menu';
 import { routes } from './routes';
 
 
+
 @NgModule({
     imports: [
         SharedModule,
         RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
         PagesModule
     ],
-    declarations: [],
+    declarations: [
+  ],
     exports: [
         RouterModule
     ]

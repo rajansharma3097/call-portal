@@ -96,19 +96,38 @@ class User extends Authenticatable
      *  The method return user list.
      *  @param   [void]
      *  @return  [array] 
+     *  @author  Birendra Kanwasi <bkanwasi21@gmail.com>
      */
-    public function getUserList($search = "")
+    public function getUserList()
     {
-        return $this->where([
+        $status = [2 => 1, 3 => 0];
+        $filters = [
+            'email'  => empty($_REQUEST['search']) ? "" : $_REQUEST['search'],
+            'status' => (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 1) ? null : $status[$_REQUEST['tab']] ?? null
+        ];
 
-            ['email', 'like', '%' . $search . '%']
 
-        ])->role()->paginate(15)->toArray();
+        return $this->where(
 
-        /*dd($this->where([
-            ['role_id', 3],
-            ['email', 'like', '%' . $search . '%']
-        ])->toSql());*/
+            function ($query) use ($filters) {
+                foreach ($filters as $column => $val) {
+                    if (!empty(trim($val)) || ($val === 0)) $query->where($column, $val);
+                }
+            }
+        )->role()->paginate(15)->toArray();
+
+        /* dd($this->where(
+
+            function($query) use ($filters)
+            {
+                foreach ( $filters as $column => $val )
+                {
+                    //$value = $column;
+
+                    if ( !empty(trim($val))) $query->where($column, $val);
+                }
+            }
+        )->role()->toSql());*/
     }
 
     public function scopeRole($query)

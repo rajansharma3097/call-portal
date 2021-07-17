@@ -79,7 +79,7 @@ import { PhoneNumberComponent } from './forms/phone-number/phone-number.componen
         NowDirective,
         ScrollableDirective,
         JqcloudDirective,
-        PhoneNumberComponent
+        PhoneNumberComponent,
     ],
     exports: [
         CommonModule,

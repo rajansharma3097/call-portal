@@ -15,8 +15,6 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { LoaderInterceptor } from './core/interceptors/loader-interceptor.service';
 import { MyLoaderComponent } from './shared/components/my-loader/my-loader.component';
 import { LoaderService } from './shared/services/loader.service';
-
-
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -26,6 +24,7 @@ export function createTranslateLoader(http: HttpClient) {
     declarations: [
         AppComponent,
         MyLoaderComponent,
+       
 
     ],
     imports: [
