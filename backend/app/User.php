@@ -100,12 +100,11 @@ class User extends Authenticatable
      */
     public function getUserList()
     {
-        $status = [2 => 1, 3 => 0];
+        $status = [2 => 1, 3 => 0]; // 1=> Active Users,  0 => Deactive User //
         $filters = [
-            'email'  => empty($_REQUEST['search']) ? "" : $_REQUEST['search'],
+            'email'  => empty($_REQUEST['search']) ? "" : trim($_REQUEST['search']),
             'status' => (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 1) ? null : $status[$_REQUEST['tab']] ?? null
         ];
-
 
         return $this->where(
 

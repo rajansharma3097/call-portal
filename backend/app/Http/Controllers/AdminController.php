@@ -18,7 +18,7 @@ class AdminController extends Controller
      */
     public function uploadAudio(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'audio_name' => 'required|max:255',
             'file' => 'required|file|mimes:audio/mpeg,mp3,wav|max:1048',
         ]);
@@ -28,11 +28,11 @@ class AdminController extends Controller
         }
 
         // code for upload 'file'
-        if($request->hasFile('file')) {
+        if ($request->hasFile('file')) {
             $file = $request->file('file');
             $uniqueid = uniqid();
             $extension = $file->getClientOriginalExtension();
-            $filename = Carbon::now()->format('Ymd').'_'.$uniqueid.'.'.$extension;
+            $filename = Carbon::now()->format('Ymd') . '_' . $uniqueid . '.' . $extension;
             $file->move('uploads/audios/', $filename);
         } else {
             return response()->json(['code' => 2, 'message' => 'Unable to upload file']);
@@ -46,7 +46,7 @@ class AdminController extends Controller
         $audioObject->status     = 1;
         $audioObject->created_at = date('Y-m-d H:i:s');
         $saved = $audioObject->save();
-        if( !$saved ) {
+        if (!$saved) {
             return response()->json(['code' => 2, 'message' => 'Problem in saving data']);
         }
         return response()->json(['code' => 1, 'message' => 'Audio Added Successfully.']);
@@ -66,21 +66,19 @@ class AdminController extends Controller
         $audioList   = $audioObject->getAdminAudioList($userId);
 
         return response()->json(['code' => 1, 'data' => $audioList]);
-
     }
 
     public function deleteAudio(Request $request, $id)
     {
         $audioDelete = TblAudio::findOrFail($id);
 
-        if( $audioDelete ) {
+        if ($audioDelete) {
             $audioDelete->status = 0;
             $audioDelete->update();
             return response()->json(['code' => 1, 'message' => "Audio Deleted Successfully."]);
         } else {
             return response()->json(['code' => 2, 'message' => "Audio Detail Not Found"]);
         }
-
     }
 
     /**
@@ -89,7 +87,7 @@ class AdminController extends Controller
      */
     public function addSource(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'sourceName' => 'required|max:255',
         ]);
 
@@ -100,14 +98,13 @@ class AdminController extends Controller
         $sourceId = $request->sourceId;
         $sourceObject = new TblSource();
         $sourceDetail = $sourceObject->getSourceById($sourceId, $request->user()->id);
-        if(empty($sourceDetail))
-        {
+        if (empty($sourceDetail)) {
             $sourceObject->user_id     = $request->user()->id;
             $sourceObject->source_name = $request->sourceName;
             $sourceObject->type        = 1;
             $sourceObject->created_at  = date('Y-m-d H:i:s');
             $saved = $sourceObject->save();
-            if( !$saved ) {
+            if (!$saved) {
                 return response()->json(['code' => 2, 'message' => 'Problem in saving data']);
             }
             $message = 'Source Added Successfully.';
@@ -115,7 +112,7 @@ class AdminController extends Controller
             $sourceDetail->source_name = $request->sourceName;
             $sourceDetail->updated_at  = date('Y-m-d H:i:s');
             $updated = $sourceDetail->update();
-            if( !$updated ) {
+            if (!$updated) {
                 return response()->json(['code' => 2, 'message' => 'Problem in updating data']);
             }
             $message = 'Source Updated Successfully.';
@@ -137,20 +134,18 @@ class AdminController extends Controller
         $sourceList   = $sourceObject->getAdminSourceList($userId);
 
         return response()->json(['code' => 1, 'data' => $sourceList]);
-
     }
 
     public function deleteSource(Request $request, $id)
     {
         $sourceDelete = TblSource::findOrFail($id);
 
-        if( $sourceDelete ) {
+        if ($sourceDelete) {
             $sourceDelete->delete();
             return response()->json(['code' => 1, 'message' => "Source Deleted Successfully."]);
         } else {
             return response()->json(['code' => 2, 'message' => "Source Detail Not Found"]);
         }
-
     }
 
     public function getSingleSource(Request $request, $id)
@@ -158,14 +153,19 @@ class AdminController extends Controller
         $userId = $request->user()->id ?? 0;
         $sourceObject = new TblSource();
         $sourceData   = $sourceObject->getSourceById($id, $userId);
-        if($sourceData) {
+        if ($sourceData) {
             return response()->json(['code' => 1, 'sourceDetail' => $sourceData]);
         } else {
             return response()->json(['code' => 2, 'message' => "Source Detail Not Found"]);
         }
     }
 
-
+    /**
+     * Get user List
+     *
+     * @param Request $request
+     * @author Birendar Kanwasi <bkanwasi21@gmail.com>
+     */
     public function getUserList(Request $request)
     {
         try {
@@ -177,6 +177,12 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Deactivate User
+     *
+     * @param Request $request
+     * @author Birendar Kanwasi <bkanwasi21@gmail.com>
+     */
     public function deleteUser(Request $request, $userId)
     {
         try {
@@ -184,21 +190,20 @@ class AdminController extends Controller
 
             if (!$obj)
                 return response()->json(['code' => 2, 'message' => 'User detail not found']);
-            
-            if($obj->status){
+
+            if ($obj->status) {
                 $status = 0;
-                $message ="Deactivated";
-            }else{
+                $message = "deactivated";
+            } else {
                 $status = 1;
-                $message ="Activated" ;   
+                $message = "activated";
             }
 
             $obj->status = $status;
             $obj->save();
-            return response()->json(['code' => 1, 'message' => "User has been $message successfully.",'status'=>$status]);
+            return response()->json(['code' => 1, 'message' => "User has been $message successfully.", 'status' => $status]);
         } catch (Exception $ex) {
             return response()->json(['code' => 2, 'message' => $ex->getMessage() . " Line No " . $ex->getLine()]);
         }
     }
-
 }

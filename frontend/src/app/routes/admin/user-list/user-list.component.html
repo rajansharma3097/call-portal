@@ -14,13 +14,31 @@
           <div class="nav-wrapper">
             <ul class="nav nav-tabs">
               <li class="nav-item">
-                <a class="nav-link" [ngClass]="{active: activeBar==1}"  (click)="activeTab(1)" href="#">All Users</a>
+                <a
+                  class="nav-link"
+                  [ngClass]="{ active: activeBar == 1 }"
+                  (click)="activeTab(1)"
+                  href="#"
+                  >All Users</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" [ngClass]="{active: activeBar==2}" (click)="activeTab(2)" href="#">Active Users</a>
+                <a
+                  class="nav-link"
+                  [ngClass]="{ active: activeBar == 2 }"
+                  (click)="activeTab(2)"
+                  href="#"
+                  >Active Users</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" [ngClass]="{active: activeBar==3}" (click)="activeTab(3)" href="#">Deactive Users</a>
+                <a
+                  class="nav-link"
+                  [ngClass]="{ active: activeBar == 3 }"
+                  (click)="activeTab(3)"
+                  href="#"
+                  >Deactive Users</a
+                >
               </li>
             </ul>
           </div>
@@ -29,52 +47,157 @@
       <div class="col-lg-5">
         <div class="form-inline justify-content-end my-2 my-lg-0">
           <div class="form-group">
-            <input type='text' #search="ngModel" id="search" ngModel name="search" class="form-control"
-              placeholder='Type to filter the data...' />
+            <input
+              type="text"
+              #search="ngModel"
+              id="search"
+              ngModel
+              name="search"
+              class="form-control"
+              placeholder="Enter email id"
+            />
           </div>
           <div class="form-group">
-            <button id="searchbutton" type="button" class="btn btn-secondary" (click)="searchUserList('','')">
-              Clear</button>
+            <button
+              id="searchbutton"
+              type="button"
+              class="btn btn-secondary"
+              (click)="searchUserList('', '')"
+            >
+              Clear
+            </button>
           </div>
           <div class="form-group">
-            <button id="searchbutton" type="button" class="btn btn-primary" (click)="searchUserList('',search.value)">
-              Search</button>
+            <button
+              id="searchbutton"
+              type="button"
+              class="btn btn-primary"
+              (click)="searchUserList('', search.value)"
+            >
+              Search
+            </button>
           </div>
         </div>
       </div>
-
     </div>
-    <ngx-datatable #myTable class='material no-detail-row' [columnMode]="ColumnMode.force" [footerHeight]="50"
-      [headerHeight]="50" [rowHeight]="'auto'" [reorderable]="reorderable" [scrollbarH]="true" [rows]='rows'
-      [externalPaging]="true" [externalSorting]="false" [loadingIndicator]="loading" [count]="page.totalElements"
-      [offset]="page.pageNumber-1" [limit]="page.size" (page)="getUserList($event)" (sort)="onSort($event)">
-      <ngx-datatable-column name="User Name" prop="name" [sortable]="true"></ngx-datatable-column>
-      <ngx-datatable-column name="Email" prop="email" [sortable]="false"> </ngx-datatable-column>
+    <ngx-datatable
+      #myTable
+      class="material no-detail-row"
+      [columnMode]="ColumnMode.force"
+      [footerHeight]="50"
+      [headerHeight]="50"
+      [rowHeight]="'auto'"
+      [reorderable]="reorderable"
+      [scrollbarH]="true"
+      [rows]="rows"
+      [externalPaging]="true"
+      [externalSorting]="false"
+      [loadingIndicator]="loading"
+      [count]="page.totalElements"
+      [offset]="page.pageNumber - 1"
+      [limit]="page.size"
+      (page)="getUserList($event)"
+      (sort)="onSort($event)"
+    >
+      <ngx-datatable-column
+        name="User Name"
+        prop="name"
+        [sortable]="true"
+      ></ngx-datatable-column>
+      <ngx-datatable-column name="Email" prop="email" [sortable]="false">
+        <ng-template
+          let-value="value"
+          let-expanded="expanded"
+          let-row="row"
+          ngx-datatable-cell-template
+        >
+          <a
+            (click)="switchUserAccount(row.id)"
+            href="#"
+            title="Login into user account"
+          >
+            {{ row.email }}</a
+          >
+        </ng-template>
+      </ngx-datatable-column>
 
       <ngx-datatable-column name="Status" prop="status" [sortable]="false">
-        <ng-template let-value="value" let-expanded="expanded" let-row="row" ngx-datatable-cell-template>
-          <span class="badge badge-success" [ngClass]="row.status==1?'badge-succes':'badge-danger'"> {{row.status |
-            activeFilter}}</span>
+        <ng-template
+          let-value="value"
+          let-expanded="expanded"
+          let-row="row"
+          ngx-datatable-cell-template
+        >
+          <span
+            class="badge badge-success"
+            [ngClass]="row.status == 1 ? 'badge-succes' : 'badge-danger'"
+            (click)="deleteAccount(row)"
+            style="cursor: pointer"
+          >
+            {{ row.status | activeFilter }}</span
+          >
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Action">
-
-        <ng-template let-value="value" let-expanded="expanded" let-row="row" ngx-datatable-cell-template>
+        <ng-template
+          let-value="value"
+          let-expanded="expanded"
+          let-row="row"
+          ngx-datatable-cell-template
+        >
           <div class="btn-group" dropdown>
-            <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-              aria-controls="dropdown-basic" data-bs-toggle="dropdown">
+            <button
+              id="button-basic"
+              dropdownToggle
+              type="button"
+              class="btn btn-primary dropdown-toggle"
+              aria-controls="dropdown-basic"
+              data-bs-toggle="dropdown"
+            >
               Action <span class="gear"></span>
             </button>
-            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-              <li role="menuitem" DropdownItem><a class="dropdown-item" href="#"
-                  (click)="switchUserAccount(value)">Login into User Account</a></li>
-              <li role="menuitem" DropdownItem><a class="dropdown-item" href="#"
-                  (click)="openModal(template,row)">Change Password</a></li>
-              <li role="menuitem" DropdownItem><a class="dropdown-item" href="#" (click)="deleteAccount(row)"
-                  *ngIf="row.status">Delete</a></li>
+            <ul
+              id="dropdown-basic"
+              *dropdownMenu
+              class="dropdown-menu"
+              role="menu"
+              aria-labelledby="button-basic"
+            >
+              <li role="menuitem" DropdownItem>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  (click)="switchUserAccount(row.id)"
+                  >Login into User Account</a
+                >
+              </li>
+              <li role="menuitem" DropdownItem>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  (click)="openModal(template, row)"
+                  >Change Password</a
+                >
+              </li>
+              <li role="menuitem" DropdownItem>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  (click)="deleteAccount(row)"
+                  *ngIf="row.status"
+                  >Delete</a
+                >
+              </li>
 
-              <li role="menuitem" DropdownItem><a class="dropdown-item" href="#" (click)="deleteAccount(row)"
-                  *ngIf="!row.status">Activate</a></li>
+              <li role="menuitem" DropdownItem>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  (click)="deleteAccount(row)"
+                  *ngIf="!row.status"
+                  >Activate</a
+                >
+              </li>
             </ul>
           </div>
         </ng-template>
@@ -83,18 +206,35 @@
 
     <ng-template #template>
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Change Password ({{userDetail.email }})</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <h4 class="modal-title pull-left">
+          Change Password ({{ userDetail.email }})
+        </h4>
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="modalRef.hide()"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form (ngSubmit)="onUpdatePassword(newPasswordForm)" #newPasswordForm="ngForm">
+      <form
+        (ngSubmit)="onUpdatePassword(newPasswordForm)"
+        #newPasswordForm="ngForm"
+      >
         <div class="modal-body">
           <div class="form-inline">
             <label class="sr-only" for="Password">Password</label>
-            <div class="input-group col-xs-3  mb-2 mr-sm-2">
-              <input type="text" class="form-control" id="newPassword" required [(ngModel)]="newPassword"
-                name="newPassword" placeholder="Password">
+            <div class="input-group col-xs-3 mb-2 mr-sm-2">
+              <input
+                type="text"
+                class="form-control"
+                id="newPassword"
+                required
+                [(ngModel)]="newPassword"
+                name="newPassword"
+                placeholder="Password"
+              />
             </div>
             <!-- <div class="form-check  mb-2 mr-sm-2" (click)="copyPassword($ev)" style="cursor: pointer;">
 
@@ -102,13 +242,25 @@
               Copy
 
             </div> -->
-            <button type="button" class="btn btn-primary mb-2 float-sm-right" (click)="generatePassword(12)">Generate
-              Password</button>
+            <button
+              type="button"
+              class="btn btn-primary mb-2 float-sm-right"
+              (click)="generatePassword(12)"
+            >
+              Generate Password
+            </button>
           </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Update</button>
-          <button type="button" class="btn btn-danger" aria-label="Close" (click)="modalRef.hide()">Close</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            aria-label="Close"
+            (click)="modalRef.hide()"
+          >
+            Close
+          </button>
         </div>
       </form>
     </ng-template>

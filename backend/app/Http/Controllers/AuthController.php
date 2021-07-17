@@ -85,9 +85,9 @@ class AuthController extends Controller
 
         try {
             $user           = User::find($userId);
-            $isAdmin= 1;
+            $isAdmin = 1;
             if ($user) {
-                $accessToken  = User::generateToken($user,$isAdmin);
+                $accessToken  = User::generateToken($user, $isAdmin);
                 return response(['user' => $user, 'access_token' => $accessToken,  'code' => 1]);
             } else {
                 return response()->json(['code' => 2, 'message' => "User detail not found." . PHP_EOL]);
@@ -96,7 +96,7 @@ class AuthController extends Controller
             return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
         }
     }
-    
+
     /**
      *For Change user Password
      *@author  Birendra Kanwasi <bkanwasi21@gmail.com>
@@ -119,7 +119,7 @@ class AuthController extends Controller
 
             $obj->password = Hash::make($request->password);
             $obj->save();
-            return response()->json(['code' => 1, 'message' => "User Password has been reset successfully."]);
+            return response()->json(['code' => 1, 'message' => "User password has been updated successfully."]);
         } catch (Exception $ex) {
             return response()->json(['code' => 2, 'message' => $ex->getMessage() . " Line No " . $ex->getLine()]);
         }
