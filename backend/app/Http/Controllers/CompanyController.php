@@ -313,4 +313,24 @@ class CompanyController extends Controller
             return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
         }
     }
+
+
+     /**
+     * Get Campaign DropDownList
+     * @param Request $request
+     * @author Birendar Kanwasi <bkanwasi21@gmail.com>
+     */
+    public function campaignDropDownList(Request $request)
+    {
+        try {
+            $userId = $request->user()->id ?? 0;
+
+            $campaignObject = new TblCampaigns();
+            $companyList   = $campaignObject->getCampaignDropDown($userId);
+
+            return response()->json(['code' => 1, 'data' => $companyList]);
+        } catch (Exception $e) {
+            return response()->json(['code' => 2, 'message' => $e->getMessage() . PHP_EOL]);
+        }
+    }
 }

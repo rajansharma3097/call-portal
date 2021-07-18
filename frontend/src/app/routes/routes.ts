@@ -14,6 +14,10 @@ export const routes: Routes = [
             { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
             /* Company Routes */
             { path: 'company', loadChildren: () => import('./company/company.module').then(m => m.CompanyModule) },
+            
+             /* Number Routes */
+             { path: 'number', loadChildren: () => import('./numbers/numbers.module').then(m => m.NumbersModule) },
+
             /* Admin Routes */
             { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 

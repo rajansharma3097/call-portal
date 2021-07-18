@@ -21,6 +21,22 @@ const Company = {
     ]
 }
 
+const Numbers = {
+    text: 'Numbers',
+    link: '/number',
+    icon: 'fa fas fa-phone',
+    submenu: [
+        {
+            text: 'All Numbers',
+            link: '/number/number-list'
+        },
+        {
+            text: 'New Tracking Number',
+            link: '/number/add-number'
+        },
+    ]
+}
+
 const Admin = {
     text: 'Admin',
     link: '/admin',
@@ -35,7 +51,7 @@ const Admin = {
         {
             text: 'Source',
             link: '/admin/source-list',
-            icon: 'icon-tag'
+           // icon: 'icon-tag'
        },
 
         {
@@ -47,13 +63,13 @@ const Admin = {
         {
             text: 'Plan',
             link: '/admin/plan-list',
-            icon: 'icon-settings'
+           // icon: 'icon-settings'
         },
 
         {
             text: 'Manage User',
             link: '/admin/user-list',
-            icon: 'icon-settings'
+            //icon: 'icon-settings'
         },
 
 
@@ -69,21 +85,21 @@ const UserSettings = {
 
         text:'Twilio Settings',
         link:'/user/settings',
-        icon:'icon-phone'
+        //icon:'icon-phone'
     },
 
     {
 
         text:'Change Password',
         link:'/user/change-passowrd',
-        icon:'icon-key'
+       // icon:'icon-key'
     },
 
     {
 
         text:'Account',
         link:'/user/account',
-        icon:'icon-user'
+       // icon:'icon-user'
     },
 
 
@@ -100,6 +116,7 @@ export const menu = [
     headingMain,
     Home,
     Company,
+    Numbers,
     UserSettings,
     Admin,
 

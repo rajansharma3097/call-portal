@@ -15,6 +15,7 @@ export class CommonService {
   private countries$: Observable<Array<any>>;
   private companies$: Observable<Array<any>>;
   private timezones$: Observable<Array<any>>;
+  private campaigns$: Observable<Array<any>>;
 
   constructor(private http: HttpClient) { }
 
@@ -67,6 +68,16 @@ export class CommonService {
     return this.timezones$;
   }
 
+  get campaigns() {
+    if (!this.campaigns$) {
+      this.campaigns$ = this.requestCampaigns().pipe(
+        shareReplay(CACHE_SIZE)
+      );
+    }
+
+    return this.campaigns$;
+  }
+
   private requestCountries() {
     return this.http.get<any>(`${this.baseUrl}/get-countries`).pipe(
       map(response =>  { return response.data;})
@@ -81,6 +92,12 @@ export class CommonService {
 
   private requestTimezones() {
     return this.http.get<any>(`${this.baseUrl}/get-timezones`).pipe(
+      map(response =>  { return response.data;})
+    );
+  }
+
+  private requestCampaigns() {
+    return this.http.get<any>(`${this.baseUrl}/get-campaigns`).pipe(
       map(response =>  { return response.data;})
     );
   }

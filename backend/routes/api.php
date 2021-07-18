@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('campaign-list', 'CompanyController@campaignList');
     Route::get('get-campaign/{id}', 'CompanyController@getCampaignById');
     Route::delete('delete-campaign/{id}', 'CompanyController@deleteCampaign');
+    Route::get('get-campaigns','CompanyController@campaignDropDownList');
 });
 
 

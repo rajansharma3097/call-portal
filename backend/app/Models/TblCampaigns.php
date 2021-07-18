@@ -52,4 +52,18 @@ class TblCampaigns extends Model
         ])->first();
     }
 
+
+    /**
+     * Get Campaign Listing without pagination
+     * @param   [integer]  $userId
+     * @return  [array]
+     */
+    public function getCampaignDropDown($userId)
+    {
+        return $this->where([
+            ['user_id', $userId],
+            ['status', 1]
+        ])->get()->toArray();
+    }
+
 }

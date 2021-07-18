@@ -1,0 +1,120 @@
+<div class="content-heading">
+  <div>New Tracking Number</div>
+</div>
+<div class="col-md-12">
+  <!-- START card-->
+  <div class="card card-default">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6">
+          <fieldset class="border p-2">
+            <legend class="w-auto">Name & Destination Phone Number</legend>
+
+            <form>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="firstName" class="form-label">Country</label>
+                  <select
+                    class="form-control"
+                    name="country_id"
+                    id="country_id"
+                  >
+                    <option value="0">Select Country</option>
+                    <option
+                      *ngFor="let country of countries$ | async"
+                      [value]="country.id"
+                    >
+                      {{ country.country_name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="lastName" class="form-label">Country Code</label>
+                  <input
+                    type="text"
+                    name="country_code"
+                    class="form-control"
+                    id="country_code"
+                    placeholder="Country Code"
+                    
+                  />
+                </div>
+
+                <div class="col-md-4">
+                  <label for="destination_number" class="form-label"
+                    >Destination Number</label
+                  >
+                  <input
+                    type="destination_number"
+                    name="destination_number"
+                    class="form-control"
+                    id="destination_number"
+                    placeholder="Destination Number"
+                    required
+                  />
+                </div>
+      
+
+                <div class="col-md-6">
+                    <label for="search_local_number" class="form-label">Search Local Number</label>
+                    <input
+                      type="search_local_number"
+                      name="search_local_number"
+                      class="form-control"
+                      id="search_local_number"
+                      placeholder="Search Local Number"
+                      required
+                    />
+                  </div>
+
+                  <div class="col-md-6">
+                     &nbsp;
+                  </div>
+
+                 
+
+                  <div class="col-md-6">
+                    <label for="Campaign" class="form-label">Campaign</label>
+                    <select
+                      class="form-control"
+                      name="campaign_id"
+                      id="campaign_id"
+                    >
+                      <option value="0">Select Campaign</option>
+                      <option
+                        *ngFor="let campaign of campaigns$ | async"
+                        [value]="campaign.id"
+                      >
+                        {{ campaign.campaign_name }}
+                      </option>
+                    </select>
+                  </div> 
+
+                  <div class="col-md-6">
+                    &nbsp;
+                 </div>
+
+                  <div class="col-md-6" style="margin-top:10px">
+                    <button type="submit" class="btn btn-primary">Search Available Numbers</button>
+                  </div>
+              </div>
+
+           
+            </form>
+          </fieldset>
+        </div>
+        <div class="col-sm-4">
+          <h2 class="mb-3">Help</h2>
+   
+          <h1>Destination Phone Number</h1>
+        
+          <p>
+            The destination number is where the phone will ring when customers
+            dial your tracking number. This is typically your primary business
+            phone number.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
